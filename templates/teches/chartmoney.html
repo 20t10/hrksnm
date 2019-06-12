@@ -1,0 +1,292 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} กราฟแสดงจำนวนครั้งที่เก็บเงินของสาขา {% endblock %}
+{% block impJs%}
+<script  src="{% static 'js/Chart.js' %}"></script>
+<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+{% endblock%}
+
+<script type="text/javascript">
+{% block jquery %}
+var endpoint = '/teches/money-branch/'
+var defaultData = [];
+var bcount = [];
+var branch = [];
+var branch_result ="";
+var branch_set =[];
+var dataset =[];
+var dataset_bg=[];
+var dataset_bgborder=[];
+
+//var branch_count = branch_count = [0];
+//var datax = default[0].map(x => x.bcount)
+var labels = [];
+var utils = Samples.utils;
+
+//var colorNames = Object.keys(window.chartColors);
+//var colorName = colorNames[config.data.datasets.length % colorNames.length];
+//var newColor = window.chartColors[colorName];
+
+ var color = Chart.helpers.color;     
+jQuery.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+        //var datax = defaultData[0].map(x => x.bcount)
+        //branch__count = data.default['branch__count'];        
+        var result="";     
+        
+        var bcount_result ="";
+         var i ;
+         var j=0;
+         for(i=0;i<=data.default.length-1;i++){
+            console.log(data.default);
+            var n;
+            
+            for (n=0;n<=data.default[i].length-1;n++){
+                 bid= data.default[i][n].branch__branch_name;
+                 bcount = data.default[i][n].bcount;
+                var branch = {
+                    branchid: bid,
+                    count: bcount
+                }
+                    
+                 
+                  //console.log(branch);
+                // console.log("Branch ID : "+branch);
+                // console.log("Branch Count: "+bcount);
+                //console.log(data.default[i][n]);
+                //console.log(data.default[i][n].branch);
+                //console.log(data.default[i][n].bcount);
+                result+=" n:"+n+" branch :"+data.default[i][n].branch+" bcount :" +data.default[i][n].bcount;
+                branch_result+=data.default[i][n].branch__branch_name;
+                bcount_result+=data.default[i][n].bcount;
+                branch_set[j] = data.default[i][n].branch__branch_name
+                dataset[j]=data.default[i][n].bcount;
+                // dataset_bg[j]=color(newColor).alpha(0).rgbString();
+                // dataset_bgborder[j]=newColor;
+                //console.log(branch_result);
+                j++;
+            }
+
+         }
+        //console.log(branch);
+          
+        defaultData = data.default[0]
+
+     
+        setChart()
+    },
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)
+    }
+})
+function getRandomColor() {
+            var letters = '0123456789ABCDEF'.split('');
+            var color = '#';
+            var colorloop = dataset.length
+            console.log(colorloop)
+            for (var i = 0; i < colorloop; i++ ) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+                }
+function setChart(bcount_result){
+
+    var ctx = document.getElementById("myChart");
+    var ctx2 = document.getElementById("myChart2");
+
+    var myChart = new Chart(ctx2, {
+    type: 'pie',
+    data: {
+        labels:branch_set,     
+        datasets: [{
+           label: '# จำนวนครั้ง',
+            data:dataset,
+
+            //randomize() 
+
+            backgroundColor:[
+            //getRandomColor(),
+            window.chartColors.red,        
+            window.chartColors.yellow,
+            window.chartColors.green,
+            window.chartColors.blue,
+            window.chartColors.orange,
+             window.chartColors.violet,
+             window.chartColors.brown,
+             window.chartColors.pink
+             ,
+            ],
+             
+            borderColor: 'rgba(255, 255, 255, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+
+    var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: branch_set,
+        datasets: [{
+            label: '# จำนวนครั้ง',
+            data: dataset,
+            backgroundColor: [
+                       window.chartColors.red,        
+            window.chartColors.yellow,
+            window.chartColors.green,
+            window.chartColors.blue,
+            window.chartColors.orange,
+             window.chartColors.violet,
+             window.chartColors.brown,
+             window.chartColors.pink
+            ],
+            borderColor: [
+                       window.chartColors.red,        
+            window.chartColors.yellow,
+            window.chartColors.green,
+            window.chartColors.blue,
+            window.chartColors.orange,
+             window.chartColors.violet,
+             window.chartColors.brown,
+             window.chartColors.pink
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+
+}
+// var ctx = document.getElementById("myChart");
+jQuery(function($){
+    $('#withdraw-table').DataTable({
+      destroy: true,
+      dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+       "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+ 
+            // Total over all pages
+            total = api
+                .column( 2 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Total over this page
+            pageTotal = api
+                .column( 2, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column( 2 ).footer() ).html(
+
+                '฿'+pageTotal +' ( จาก'+ total +' บาท)'
+            );
+            
+        }
+
+    });
+
+
+});
+{% endblock %}
+</script>
+
+{% block content %}
+<h2 class="page-header mt-2 mb-2 text-center">กราฟแสดงจำนวนครั้งที่เก็บเงินของสาขา </h2>
+<div class="container">
+
+<div class='row'>
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-body">          
+             <canvas id="myChart2" width="400" height="400"></canvas>
+            
+              
+        </div>
+    </div>
+</div><!-- /# column -->
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-body">          
+            
+              <canvas id="myChart" width="400" height="400"></canvas>
+              
+        </div>
+    </div>
+</div><!-- /# column -->
+</div>
+<table class="table  table-hover table-responsive-sm" id="withdraw-table">
+    <thead>
+      <tr>
+        <th>สาขา </th>
+        <th>วันที่บันทึก</th>
+        <th>จำนวนเงิน</th>      
+      </tr>
+    </thead>
+    <tbody>
+      {% for withdraw in withdraws %}
+  <tr>
+    <td>{{ withdraw.branch }}</td>
+    <td>{{ withdraw.branch_check_date }}</td>
+    <td>{{ withdraw.branch_check_money }}</td>
+  </tr>
+{% empty %}
+  <tr>
+    <td colspan="5" class="text-center ">ไม่มีรายการ</td>
+  </tr>
+{% endfor %}
+
+    </tbody>
+    <tfoot>
+            <tr>
+                <th colspan="2" style="text-align:right">Total:</th>
+                <th></th>
+            </tr>
+        </tfoot>
+  </table>
+  
+  <hr>
+
+
+</div>
+
+
+
+{% endblock %}

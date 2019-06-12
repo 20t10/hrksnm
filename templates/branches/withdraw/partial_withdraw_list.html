@@ -1,0 +1,25 @@
+{% for machine in withdraws %}
+  <tr>  
+    <td>{{ machine.branch }}</td>
+    <td>{{ machine.machine }}</td>
+    <td>{{ machine.check_date |date:"SHORT_DATE_FORMAT" }}</td>
+    <td>{{ machine.check_update |date:"SHORT_DATE_FORMAT" }}</td>
+    <td> {{ machine.check_money }}</td>
+    <td> {{ machine.fix_money }}</td>
+    <td> {{ machine.profit_last }}</td>
+    
+    <td style="width: 150px">
+      <button type="button"
+              class="btn btn-warning btn-sm js-update-withdraw"
+              data-url="{% url 'branches:withdraw_update' machine.id %}">
+        <span class="glyphicon glyphicon-pencil"></span> แก้ไข
+      </button>
+      <button type="button"
+              class="btn btn-danger btn-sm js-delete-withdraw"
+              data-url="{% url 'branches:withdraw_delete' machine.id %}">
+        <span class="glyphicon glyphicon-trash"></span> ลบ
+      </button>
+    </td>
+    
+  </tr>
+{% endfor %}

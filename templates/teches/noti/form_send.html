@@ -1,0 +1,106 @@
+{% load static %}<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %} ส่งการแจ้งเครื่องเสีย {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'login/login.css' %}">
+      <link rel="stylesheet" href="{% static 'login/all.css' %}">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css">
+  </head>
+  <body>
+{% load bootstrap4 %}
+<div class="container mt-2 mb-2 jumbotron">
+  <h2 class="text-center mt-2 mb-2"> ฟอร์มการแจ้งเครื่องเสีย</h2>
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto mt-2">
+{% block content %}
+    <form class="form-signin" method="POST" id="sendform" data-machines-url="{% url 'teches:ajax_load_machines' %}" novalidate >
+    {% csrf_token %}
+    {% load widget_tweaks %}
+
+    {% for field in form %}
+      <div class="form-group{% if field.errors %} has-error{% endif %}">
+        <label style="color:red" for="{{ field.id_for_label }}">*{{ field.label }} {{ field.help_text }}</label>
+        {% render_field field class="form-control" %}
+        {% for error in field.errors %}
+          <p class="help-block">{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endfor %}
+
+<button class="btn btn-lg btn-primary btn-block mt-4 mb-2" type="submit" id="btnsubmit">
+    <i class="fa fa-check" aria-hidden="true"></i> ส่ง
+</button>
+</form>
+<a href="{% url 'index' %}" class="btn btn-lg btn-secondary btn-block mt-4 mb-2">
+  <i class="fas fa-home"></i>
+  กลับหน้าแรก</a>
+
+      </div>
+    </div>
+  </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+  jQuery(function($){
+    
+  
+       $('document').ready(function(){
+
+         $("#id_branch").change(function () {
+           var url = $("#sendform").attr("data-machines-url");
+           var branchId = $(this).val();
+
+           $.ajax({
+             url: url,
+             data: {
+               'branch': branchId
+             },
+             success: function (data) {
+               $("#id_machine").html(data);
+
+
+             }
+           });
+
+         });
+
+         document.querySelector('#sendform').addEventListener('submit', function(e) {
+      var form = this;
+      e.preventDefault();
+      swal({
+          title: "คุณต้องการส่งข้อมูลไหม?",
+          text: "ข้อมูลการแจ้งเครื่องเสียจะถูกส่งเข้าไปในระบบ!",
+          icon: "info",
+          buttons: [
+            'ไม่, ยกเลิกการส่ง!',
+            'ใช่, ส่งการแจ้งเตือน!'
+          ],
+          dangerMode: false,
+        }).then(function(isConfirm) {
+          if (isConfirm) {
+            swal({
+              title: 'สำเร็จ!',
+              text: 'คุณได้การส่งข้อมูลแล้ว',
+              icon: 'success'
+            }).then(function() {
+              form.submit();
+            });
+          } else {
+            swal("ยกเลิก", "คุณได้ยกเลิกการส่งข้อมูลแล้ว", "error");
+          }
+        });
+    });
+
+
+
+		});
+
+  });
+</script>
+{% endblock  %}
+  </body>
+</html>

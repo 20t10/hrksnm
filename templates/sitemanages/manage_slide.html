@@ -1,0 +1,38 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} การจัดการ หน้าแรก {% endblock %}
+{% block javascript %}
+<script src="{% static 'sitemanage/js/slidemanage.js' %}"></script>
+{% endblock %}
+{% block content %}
+  <h4 class="page-header mt-2 mb-2 justify-content-center text-center">จัดการ หน้าเว็บไซต์</h4>
+   {% if  user.is_superuser == True or user.user_type == 1 %}
+  <p>
+    <button type="button" class="btn btn-primary js-create-slide" data-url="{% url 'site:slide_create' %}">
+      <i class="fas fa-plus"></i>
+      เพิ่มรูป
+    </button>
+  </p>
+  <table class="table table-bordered  table-hover table-responsive-sm" id="slide-table">
+    <thead>
+    <tr>
+      <td>รูป</td>
+      <td>คำอธิบาย</td>
+      <td></td>
+      <td></td>
+    </tr>
+    </thead>
+    <tbody>
+     {% include 'sitemanages/slide/partial_slide_list.html' %}
+    </tbody>
+  </table>
+
+  <div class="modal fade" id="modal-slide">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+   {% endif %}
+{% endblock %}

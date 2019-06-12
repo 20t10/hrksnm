@@ -1,0 +1,38 @@
+
+      {% for machine in machines %}
+  <tr>
+    <td>{{ machine.id }}</td>
+    <td>{{ machine.machine_location.branch_name }} </td>
+    <td>{{ machine.machine_name }}</td>
+  
+    <td>
+    {% if machine.machine_status == True %}
+    online
+    {% else %}
+    offline
+    {% endif %}
+    
+    </td>
+    <td>
+    {% if machine.is_broken == True %}
+    มีการแจ้งเสีย
+    {% else %}
+    ไม่มีการแจ้งเสีย
+    {% endif %}
+    
+   
+    </td>
+    <td style="width: 150px">
+      
+      <button type="button"
+              class="btn btn-warning btn-sm js-update-fix"
+              data-url="{% url 'machines:fix_update' machine.id %}">
+        <i class="fas fa-times-circle"></i> ยกเลิกการแจ้งเตือน
+      </button>
+    </td>
+  </tr>
+{% empty %}
+  <tr>
+    <td colspan="8" class="text-center ">ไม่มีรายการแจ้งเตือน</td>
+  </tr>
+{% endfor %}

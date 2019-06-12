@@ -1,0 +1,47 @@
+{% load static %}<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ปัญหาที่พบบ่อย &mdash; สายน้ำมิ้น ให้บริการ ซ่อมเครื่องซักผ้า เครื่องซักผ้าหยอดเหรียญ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="สายน้ำมิ้นให้บริการ เครื่องซักผ้าหยอดเหรียญ ซ่อมเครื่องซักผ้า ปัญหาที่พบบ่อย" />
+  <meta name="keywords" content="เครื่องซักผ้าหยอดเหรียญ ซ่อมเครื่องซักผ้า สายน้ำมิ้น ปัญหาที่พบบ่อย" />
+  <meta name="author" content="สายน้ำมิ้น" />
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css">
+  </head>
+  <body>
+<body>
+    <div id="page">
+    <header id="gtco-header" class="gtco-cover" role="banner">
+      <div class="container">
+      <a href="{% url 'index' %}" class="btn btn-secondary mt-2 mb-2"><i class="fas fa-angle-double-left"></i> กลับหน้าหลัก</a>
+        <div class="row">
+          <div class="col-md-12 col-md-offset-0 text-left">
+            <div class="jumbotron mt-2">
+              <div class="">
+                <div class="row">
+                  <div class="col copy animate-box">
+                                                            <h1 class="display-4 mt-2 mb-2 text-center">คำถามที่พบบ่อย</h1>
+                                                            <hr>
+                                                            {% for faq in faqs %}
+                                                            <h3><b>คำถาม ที่ {{ faq.faq_id }}:</b>   {{ faq.question }}</h3>
+                                                            <p ><u><b> คำตอบ:</b> {{ faq.answered }}</u></p>
+                                                            <hr>
+                                                            {% endfor %}
+                                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- END #gtco-header -->
+  </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+</html>

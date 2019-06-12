@@ -1,0 +1,42 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} การจัดการเครื่องซักผ้า | เชื่อมต่อุปกรณ์{% endblock %}
+{% block javascript %}
+  <script src="{% static 'machines/js/log.js' %}"></script>
+{% endblock %}
+{% block content %}
+  <h1 class="page-header text-center">การจัดการเครื่องซักผ้า </h1>
+  {% if user.is_staff or user.is_superuser == True %}
+  <p>
+    <button type="button" class="btn btn-primary js-create-log" data-url="{% url 'machines:log_create' %}">
+      <span class="glyphicon glyphicon-plus"></span>
+      เพิ่มเครื่องซักผ้า
+    </button>
+  </p>
+  <table class="table  table-hover table-responsive-sm" id="log-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>จำนวนเงิน</th>
+        <th>log_module</th>
+        <th>log_branch</th>
+        <th>log_date</th>
+        <th>log_time</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% include 'machines/log/partial_log_list.html' %}
+
+    </tbody>
+  </table>
+  <hr>
+  <div class="modal fade" id="modal-log">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}

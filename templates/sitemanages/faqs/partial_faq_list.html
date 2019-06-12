@@ -1,0 +1,24 @@
+{% for faq in faqs %}
+  <tr>
+
+    <td>{{ faq.question }} </td>
+     <td>{{ faq.answered }} </td>
+
+
+    <td style="width: 150px">
+      <button type="button"
+              class="btn btn-warning btn-sm js-update-faq"
+              data-url="{% url 'site:faq_update' faq.faq_id %}">
+       <i class="fas fa-pen"></i> แก้ไข
+      </button>
+
+      <button type="button"
+              class="btn btn-danger btn-sm js-delete-faq"
+              data-url="{% url 'site:faq_delete' faq.faq_id %}">
+        <i class="fas fa-times"></i> ลบ
+      </button>
+
+    </td>
+  </tr>
+
+{% endfor %}

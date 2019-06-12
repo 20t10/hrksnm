@@ -1,0 +1,118 @@
+<form method="post" action="{% url 'users:user_create' %}" class="js-user-create-form"  >
+  {% csrf_token %}
+  <div class="modal-header">
+    <h4 class="modal-title">เพิ่มผู้ใช้งาน</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+  </div>
+  <div class="modal-body">
+
+    <div class="form-group">
+
+    <label for=" id_username">ชื่อผู้ใช้  ไม่เกิน20ตัวอักษร เป็นตัวอักษรภาษาอังกฤษ ผสมกับตัวเลขได้ </label>
+    <input type="text" name="username" maxlength="20" autofocus=""
+    class="form-control" required="" id="id_username" pattern="[a-zA-Z0-9]+" title="ตัวอักษร A-Z หรือ a-z ">
+
+  </div>
+
+  <div class="form-group">
+
+    <label for=" id_password1">รหัสผ่าน  รหัสผ่านขั้นต่ำ8ตัวอักษร เป็นตัวอักษรภาษาอังกฤษ ผสมกับตัวเลขได้ </label>
+    <input type="password" name="password1" class="form-control" required="" id="id_password1">
+
+  </div>
+
+  <div class="form-group">
+
+    <label for=" id_password2">ยืนยันรหัสผ่าน  กรอกรหัสผ่านอีกครัง </label>
+    <input type="password" name="password2" class="form-control" required="" id="id_password2">
+
+  </div>
+  <div class="form-group">
+    <label for=" id_user_type">ชนิดผู้ใช้งาน</label>
+  <select class="form-control" name="user_genre" id="user_genre">
+
+    <option value="normal">ผู้ใช้งานปกติ</option>
+    <option value="organization">องค์กร</option>
+
+  </select>
+
+
+  </div>
+
+  <div class="form-group" id="normal">
+
+    <label for=" id_first_name">ชื่อ   </label>
+    <input type="text" name="first_name" maxlength="30" class="form-control" id="id_first_name">
+
+
+
+    <label for=" id_last_name">นามสกุล   </label>
+    <input type="text" name="last_name" maxlength="150" class="form-control" id="id_last_name">
+
+  </div>
+
+  <div class="form-group" id="organization">
+
+    <label for=" id_organization">ชื่อ องค์กร  ไม่เกิน30ตัวอักษร </label>
+    <input type="text" name="organization" maxlength="30" class="form-control" id="id_organization">
+
+  </div>
+
+  <div class="form-group">
+
+    <label for=" id_email">Email  ตัวอย่างเช่น user@email.com </label>
+    <input type="email" name="email" maxlength="50" class="form-control" required="" id="id_email">
+
+  </div>
+
+  <div class="form-group">
+
+    <label for=" id_user_type">สถานะผู้ใช้งาน   </label>
+    <select name="user_type" class="form-control" id="id_user_type">
+  <option value="" selected="">---------</option>
+
+  <option value="1">แอดมิน</option>
+
+  <option value="2">พนักงาน</option>
+
+  <option value="3">เจ้าของกิจการ</option>
+
+  <option value="4">ช่างซ่อม</option>
+
+</select>
+
+  </div>
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+    <button type="submit" class="btn btn-primary">เพิ่มผู้ใช้งาน</button>
+  </div>
+</form>
+<script type="text/javascript">
+
+jQuery(document).ready(function(){
+
+  {% block jquery %}
+
+  jQuery('#organization').hide();
+  jQuery('#user_genre').change(function() {
+    if (jQuery(this).val() == normal) {
+      jQuery('#normal').show();
+
+    } else {
+      jQuery('#normal').hide();
+      jQuery('#organization').show();
+    }
+  });
+  {% endblock %}
+
+
+})
+
+
+</script>

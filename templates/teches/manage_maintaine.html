@@ -1,0 +1,56 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} การจัดการ ซ่อมบำรุงเครื่อง {% endblock %}
+{% block javascript %}
+  <script src="{% static 'technician/js/maintaine.js' %}"></script>
+{% endblock %}
+{% block content %}
+
+<h4 class="page-header mt-2 mb-2 text-center">รายการ ซ่อมเครื่อง / ซ่อมบำรุงเครื่อง</h4>
+<p>
+  <button type="button" class="btn btn-primary js-create-maintaine" data-url="{% url 'teches:maintaine_create' %}">
+    <i class="fas fa-plus"></i>
+    เพิ่มรายการ
+  </button>
+</p>
+  <table class="table  table-hover table-responsive-sm table-bordered  mb-2" id="maintaine-table">
+   <thead>
+      <tr>
+        <th>สาขา </th>
+         <th>เบอร์โทรสาขา</th>
+        <th>วันที่มอบหมายงาน</th>
+        <th>ช่างที่รับมอบหมาย</th>
+        <th>ชนิดงาน</th>
+        <th>สถานะงาน</th>
+        <th>ค่าใช้จ่าย</th>
+        <th>การจัดการ</th>
+      </tr>
+    </thead>
+    <tbody>
+     {% include "teches/maintained/partial_maintaine_list.html" %}
+    </tbody>
+  </table>
+  <script type="text/javascript">
+    {% block jquery %}
+jQuery(function($){
+    $('#maintaine-table').DataTable({
+      "destroy": true
+
+    });
+ });
+
+
+  {% endblock %}
+</script>
+  <div class="modal fade" id="modal-maintaine">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+{% endblock %}

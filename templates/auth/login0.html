@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+
+{% block login %}
+<div class="container">
+<header class="masthead  text-white text-center" >
+         <h2 class="  font-weight-normal text-dark"> กรุณาลงชื่อเข้าใช้ระบบ </h2>
+        <form class="form-signin bg-dark text-light" method="POST" id="#login">
+        {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">เข้าสู่ระบบ</button>
+          </form>
+            </div>
+        </div>
+</header>
+</div>
+{% endblock %}

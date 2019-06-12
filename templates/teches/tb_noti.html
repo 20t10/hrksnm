@@ -1,0 +1,79 @@
+<h4 class="page-header mt-2 mb-2 ">รายการที่มอบหมายให้ช่าง</h4>
+  <table class="table  table-hover table-responsive-sm  mb-2" id="noti-table">
+    <thead>
+      <tr>
+        <th>#</th>
+
+        <th>ID เครื่อง</th>
+        <th>ชื่อ เครื่อง</th>
+        <th>สาขา </th>
+        <th>วันที่แจ้ง</th>
+        <th>สาเหตุ</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for nt in assign %}
+        <tr>
+              <td>{{ nt.id }} </td>
+
+              <td>{{ nt.machine.id }}</td>
+              <td>{{ nt.machine.machine_name }}</td>
+              <td>{{ nt.machine.machine_location.branch_name }}</td>
+              <td>{{ nt.send_date }}</td>
+               <td>{{ nt.send_date }}</td>
+              <td>{{ nt.fix_description_extra }}</td>
+          <td >
+            </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+ <hr>
+  <h4 class="page-header mt-2 mb-2 ">รายการที่ซ่อมเสร็จแล้ว</h4>
+  <table class="table  table-hover table-responsive-sm  mb-2" id="noti-table">
+    <thead>
+      <tr>
+        <th>#</th>
+
+        <th>ID เครื่อง</th>
+        <th>ชื่อ เครื่อง</th>
+        <th>สาขา </th>
+        <th>วันที่แจ้ง</th>
+        <th>สาเหตุ</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for nt in fn %}
+        <tr>
+              <td>{{ nt.id }} </td>
+
+              <td>{{ nt.machine.id }}</td>
+              <td>{{ nt.machine.machine_name }}</td>
+              <td>{{ nt.machine.machine_location.branch_name }}</td>
+              <td>{{ nt.send_date }}</td>
+               <td>{{ nt.send_date }}</td>
+              <td>{{ nt.fix_description_extra }}</td>
+          <td >
+            </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <script type="text/javascript">
+
+
+    {% block jquery %}
+    jQuery(function($){
+      $('#noti-table').DataTable({
+        destroy: true,
+  
+      });
+
+
+    });
+    {% endblock %}
+      </script>

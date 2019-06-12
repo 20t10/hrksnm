@@ -1,0 +1,87 @@
+{% extends "ElaAdmin/index.html" %}
+
+{% block content %}
+
+  <h1 class="page-header mb-3 text-center">บันทึกการเก็บเงินของสาขา </h1>
+  <table class="table  table-hover table-responsive-sm" id='benefit-table'>
+
+    <thead>
+      <tr>
+        <th>สาขา</th>
+        <th>ชื่อเครื่อง</th>
+        <th>วันที่บันทึก</th>
+        <th>วันที่แก้ไข</th>
+        <th>จำนวนเงินที่ได้รับ</th>
+        <th>ค่าซ่อม</th>
+        <th>รายได้สุทธิ</th>
+       
+      </tr>
+    </thead>
+    <tbody>
+    {% for benefit in benefit %}
+     <tr>
+    <td>{{ benefit.branch }}</td>
+    <td>{{ benefit.machine }}</td>
+    <td>{{ benefit.check_date |date:"SHORT_DATE_FORMAT" }}</td>
+    <td>{{ benefit.check_update |date:"SHORT_DATE_FORMAT" }}</td>
+    <td> {{ benefit.check_money }}</td>
+    <td> {{ benefit.fix_money }}</td>
+    <td> {{ benefit.profit_last }}</td>
+
+     </tr>
+      {% endfor %}
+
+    </tbody>
+    <tfoot>
+
+        </tfoot>
+  </table>
+  <script type="text/javascript">
+ {% block jquery %}
+ jQuery(function($){
+   $('#benefit-table').DataTable({
+     destroy: true,
+    "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+ 
+            // Total over all pages
+            total = api
+                .column( 2 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Total over this page
+            pageTotal = api
+                .column( 2, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column( 2 ).footer() ).html(
+
+                '฿'+pageTotal +' ( ฿'+ total +' จากทั้งหมด)'
+            );
+            
+        }
+
+   });
+ });
+
+ {% endblock %}
+ </script>
+
+
+{% endblock %}

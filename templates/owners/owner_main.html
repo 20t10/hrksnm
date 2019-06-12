@@ -1,0 +1,61 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %}  เจ้าของกิจการ | แสดงรายชื่อสาขาที่เป็นเจ้าของ{% endblock %}
+{% block javascript %}
+  <script src="{% static 'owners/js/owners.js' %}"></script>
+{% endblock %}
+{% block content %}
+  <h1 class="page-header mb-3 text-center">รายการสาขาที่เป็นเจ้าของ </h1>
+  <table class="table table-responsive-sm" id="owner-table">
+    <thead>
+      <tr>
+
+        <th>เจ้าของ</th>
+        <th>สาขา </th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for owner in branches %}
+        <tr>
+
+          <td>{{ owner.user.username }}  </td>
+          <td>{{ owner.branch.branch_name }} </td>
+          <td style="width: 150px">
+            <a href="{% url 'owners:owner_machine_list' owner.branch.branch_id %}" class="btn btn-info"> <i class="fas fa-search-plus"></i>ดูข้อมูลเครื่อง</a>
+          </td>
+                  <td style="width: 150px">
+            <a href="{% url 'owners:noti' owner.branch.branch_id %}" class="btn btn-secondary"> <i class="fas fa-search-plus"></i>ดูการแจ้งเตือน</a>
+          </td>
+
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="8" class="text-center bg-warning">ไม่มีสาขา</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <script type="text/javascript">
+ {% block jquery %}
+ jQuery(function($){
+
+   $('#owner-table').DataTable({
+    destroy: true,
+
+   });
+   });
+
+
+ {% endblock %}
+</script>
+
+  <div class="modal fade" id="modal-owner">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

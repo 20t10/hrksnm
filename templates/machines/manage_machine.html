@@ -1,0 +1,58 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} การจัดการเครื่องซักผ้า {% endblock %}
+{% block javascript %}
+  <script src="{% static 'machines/js/machines.js' %}"></script>
+{% endblock %}
+{% block content %}
+  <h1 class="page-header text-center">การจัดการเครื่องซักผ้า</h1>
+  {% if user.is_staff or user.is_superuser == True or user.user_type == 1 or user.user_type == 2 %}
+  <p>
+    <button type="button" class="btn btn-primary js-create-machine" data-url="{% url 'machines:machine_create' %}">
+     <i class="fas fa-plus"></i>
+      เพิ่มเครื่องซักผ้า
+    </button>
+  </p>
+  <table class="table  table-hover table-responsive-sm" id="machine-table">
+    <thead>
+      <tr>
+        <th>Module</th>
+        <th>ชื่อเครื่อง</th>
+        <th>สาขา</th>
+        <th>วันที่ติดตั้ง</th>
+        <th>การซ่อมครั้งถัดไป</th>
+
+        <th>การดำเนินการ</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% include 'machines/includes/partial_machine_list.html' %}
+
+    </tbody>
+  </table>
+
+   <script type="text/javascript">
+  {% block jquery %}
+jQuery(function($){
+    $('#machine-table').DataTable({
+       destroy: true,
+
+    });
+
+   });
+  {% endblock %}
+
+
+
+
+   </script>
+  <hr>
+  <div class="modal fade" id="modal-machine">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}

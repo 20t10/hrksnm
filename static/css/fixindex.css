@@ -1,0 +1,15 @@
+﻿.carousel.slide .carousel-indicators {
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+}
+.carousel.slide .carousel-caption h6{
+    font-size: 1em;
+}
+
+.icon-img{
+    width: 100%;
+    max-width: 48px;
+    max-height: 48px;
+}
+

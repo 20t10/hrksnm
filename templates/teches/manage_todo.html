@@ -1,0 +1,60 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} การจัด การซ่อม | มอบหมายจากการแจ้งเตือน | มอบหมายงานให้ช่าง{% endblock %}
+{% block javascript %}
+<script src="{% static 'technician/js/todo.js' %}"></script>
+  <script src="{% static 'js/jquery-file-upload/vendor/jquery.ui.widget.js' %}"></script>
+  <script src="{% static 'js/jquery-file-upload/jquery.iframe-transport.js' %}"></script>
+  <script src="{% static 'js/jquery-file-upload/jquery.fileupload.js' %}"></script>
+
+{% endblock %}
+{% block content %}
+  <h4 class="page-header mt-2 mb-2">มอบหมายจากการแจ้งเตือน</h4>
+  <p>
+    <button type="button" class="btn btn-primary js-create-todo" data-url="{% url 'teches:todo_create' %}">
+      <i class="fas fa-plus"></i>
+      เพิ่ม รายการ
+    </button>
+  </p>
+
+  <table class="table  table-hover table-responsive-sm" id="todo-table">
+    <thead>
+      <tr>
+        <th>Module เครื่อง</th>
+        <th>สาขา </th>
+        <th>เบอร์โทรติดต่อ</th>
+        <th>ช่างผู้รับงาน</th>
+        <th>วันที่มอบหมาย</th>
+        <th>สถานะของงาน</th>
+        <th>งาน</th>
+        <th>รูปถ่ายยืนยัน</th>
+        <th>ดำเนินการ</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% include 'teches/includes/partial_todo_list.html' %}
+    </tbody>
+  </table>
+  <script type="text/javascript">
+    {% block jquery %}
+jQuery(function($){
+    $('#todo-table').DataTable({
+      destroy: true,
+
+    });
+
+    });
+
+  {% endblock %}
+</script>
+  <div class="modal fade" id="modal-todo">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+
+
+
+
+{% endblock %}

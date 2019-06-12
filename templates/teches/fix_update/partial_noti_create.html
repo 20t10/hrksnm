@@ -1,0 +1,54 @@
+<form method="POST" action="{% url 'teches:noti_create' %}" class="js-noti-create-form" enctype="multipart/form-data" data-machines-url="{% url 'teches:ajax_load_machines' %}" id="sendform" novalidate>
+  {% csrf_token %}
+  <div class="modal-header">
+      <h4 class="modal-title">เพิ่มรายการใหม่</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+  </div>
+  <div class="modal-body">
+    {% load widget_tweaks %}
+
+    {% for field in form %}
+
+      <div class="form-group{% if field.errors %} has-error{% endif %}">
+
+        <label style="color:red;" for="{{ field.id_for_label }}">* {{ field.label }}  {{ field.help_text }}</label>
+
+        {% render_field field class="form-control" %}
+        {% for error in field.errors %}
+          <p class="help-block">{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+    <button type="submit" class="btn btn-primary">เพิ่มรายการ</button>
+  </div>
+</form>
+<script>
+jQuery(function($){
+    
+          $("#id_branch").change(function () {
+           var url = $("#sendform").attr("data-machines-url");
+           var branchId = $(this).val();
+
+           $.ajax({
+             url: url,
+             data: {
+               'branch': branchId
+             },
+             success: function (data) {
+               $("#id_machine").html(data);
+
+
+             }
+           });
+
+         });
+
+  });
+  
+</script>

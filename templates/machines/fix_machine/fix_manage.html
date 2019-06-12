@@ -1,0 +1,39 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} การจัดการเครื่องซักผ้า {% endblock %}
+{% block javascript %}
+  <script src="{% static 'machines/js/fix.js' %}"></script>
+{% endblock %}
+{% block content %}
+
+  <h4 class="page-header text-center">การจัดการ การแจ้งเตือนของเครื่อง</h4>
+  {% if user.is_staff or user.is_superuser == True or user.user_type == 1 or user.user_type == 2 %}
+
+  <table class="table  table-hover table-responsive-sm" id="fix-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>สาขา</th>
+        <th>ชื่อเครื่อง</th>
+        <th>IP</th>
+        <th>สถานะ</th>
+        <th>แจ้งเสีย</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% include "machines/fix_machine/fix_list.html" %}
+    </tbody>
+  </table>
+  <hr>
+  <div class="modal fade" id="modal-fix">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}
+

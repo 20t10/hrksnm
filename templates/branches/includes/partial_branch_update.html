@@ -1,0 +1,33 @@
+<form method="post" action="{% url 'branches:branch_update' form.instance.pk %}" class="js-branch-update-form" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title"> </h4>
+  </div>
+  <div class="modal-body">
+    {% include 'branches/includes/partial_branch_form.html' %}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+    <button type="submit" class="btn btn-primary">ยืนยัน</button>
+  </div>
+</form>
+
+<script type="text/javascript">
+jQuery(function($){
+$(document).ready(function(){
+
+  $.Thailand({
+
+    $district: $('#id_branch_district'), // input ของตำบล
+    $amphoe: $('#id_branch_amphoe'), // input ของอำเภอ
+    $province: $('#id_branch_province'), // input ของจังหวัด
+    $zipcode: $('#id_branch_zipcode'), // input ของรหัสไปรษณีย์
+            });
+
+})
+
+});
+</script>

@@ -1,0 +1,14 @@
+{% extends 'ElaAdmin/index.html' %}
+{% block content %}
+<form class="form-group" action="" method="post">
+{% csrf_token %}
+<label> ID ของผู้บันทึก</label>
+  <input class="form-control" type="text" name="user_save" value="{{ user.id }}" disabled>
+  <label>ไอดีของสาขา</label>
+  <input class="form-control" type="text" name="branch_desp" >
+  <label>จำนวนเงิน</label>
+  <input class="form-control" type="text" name="branch_check_money" >
+    <button type="submit">ยืนยัน</button>
+</form>
+
+{% endblock %}

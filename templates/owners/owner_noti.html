@@ -1,0 +1,67 @@
+{% extends "ElaAdmin/index.html" %}
+
+{% block title %} รายการแจ้งเครื่องเสีย {% endblock %}
+{% block content %}
+<h4 class="page-header mt-2 mb-2 text-center">รายการแจ้งเครื่องเสีย</h4>
+
+  <table class="table  table-hover table-responsive-sm  mb-2" id='owner-noti'>
+    <thead>
+      <tr>
+
+
+        <th>Module เครื่อง</th>
+        <th>ชื่อ เครื่อง</th>
+        <th>สาขา </th>
+        <th>วันที่แจ้ง</th>
+        <th>สาเหตุ</th>
+        <th>สถานะการแจ้งเสีย</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+     {% for nt in noti %}
+  <tr>
+
+
+        <td>{{ nt.machine.id }}</td>
+        <td>{{ nt.machine.machine_name }}</td>
+        <td>{{ nt.machine.machine_location.branch_name }}</td>
+        <td>{{ nt.send_date }}</td>
+        <td>{{ nt.fix_description_extra }}</td>
+           <td>
+       {% if nt.work_status == 1 %}
+      <strong class="text-secondary">มีการแจ้งเตือน</strong>
+       {% elif nt.work_status == 2 %}
+       <strong class="text-info">มอบหมายให้ช่าง</strong>
+       {% elif nt.work_status == 3 %}
+       <strong class="text-success">ซ่อมเรียบร้อย</strong>
+      {% elif nt.work_status == 4 %}
+       <strong class="text-danger">ซ่อมไม่ได้</strong>
+       {% endif %}
+   </td>
+    <td >
+
+    </td>
+  </tr>
+{% empty %}
+  <tr>
+    <td colspan="8" class="text-center ">ไม่มีรายการอยู่ </td>
+  </tr>
+{% endfor %}
+    </tbody>
+  </table>
+  <script type="text/javascript">
+  {% block jquery %}
+  jQuery(function($){
+   $('#owner-noti').DataTable({
+    destroy: true,
+
+   });
+  });
+
+  {% endblock %}
+  </script>
+  <hr>
+
+
+{% endblock %}

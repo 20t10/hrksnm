@@ -1,0 +1,16 @@
+<form method="post" action="{% url 'site:slide_create' %}" class="js-slide-create-form"  enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">เพิ่มข้อมูล</h4>
+  </div>
+  <div class="modal-body">
+    {% include 'sitemanages/slide/partial_slide_form.html' %}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+    <button type="submit" class="btn btn-primary">เพิ่มข้อมูล slide</button>
+  </div>
+</form>

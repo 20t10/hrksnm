@@ -1,0 +1,28 @@
+{% for machine in logs %}
+  <tr>
+    <td>{{ machine.log_id }}</td>
+    <td>{{ machine.log_thb }}</td>
+    <td>{{ machine.log_module }}</td>
+    <td>{{ machine.log_branch  }}</td>
+    <td>{{ machine.log_date }}</td>
+    <td>{{ machine.log_time }}</td>
+
+    <td style="width: 150px">
+
+      <button type="button"
+              class="btn btn-warning btn-sm js-update-log"
+              data-url="{% url 'machines:log_update' machine.log_id %}">
+        <span class="glyphicon glyphicon-pencil"></span> แก้ไข
+      </button>
+      <button type="button"
+              class="btn btn-danger btn-sm js-delete-log"
+              data-url="{% url 'machines:log_delete' machine.log_id %}">
+        <span class="glyphicon glyphicon-trash"></span> ลบ id {{machine.log_id}}
+      </button>
+    </td>
+  </tr>
+{% empty %}
+  <tr>
+    <td colspan="8" class="text-center ">ไม่มีเครื่องอยู่</td>
+  </tr>
+{% endfor %}

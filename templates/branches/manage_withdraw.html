@@ -1,0 +1,99 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block javascript %}
+  <script src="{% static 'branches/js/withdraw.js' %}"></script>
+{% endblock %}
+{% block content %}
+  <h1 class="page-header mb-3 text-center">บันทึกการเก็บเงินของสาขา</h1>
+
+  <p>
+    <button type="button" class="btn btn-primary js-create-withdraw" data-url="{% url 'branches:withdraw_create' %}">
+      <span class="glyphicon glyphicon-plus"></span>
+      เพิ่มรายการบันทึกเงินของสาขา
+    </button>
+  </p>
+
+  <table class="table  table-hover table-responsive-sm" id="withdraw-table">
+    <thead>
+      <tr>
+        <th>สาขา</th>
+        <th>ชื่อเครื่อง</th>
+        <th>วันที่บันทึก</th>
+        <th>วันที่แก้ไข</th>
+        <th>จำนวนเงินที่ได้รับ</th>
+        <th>ค่าซ่อม</th>
+        <th>รายได้สุทธิ</th>
+        <th>ดำเนินการ</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% include 'branches/withdraw/partial_withdraw_list.html' %}
+    </tbody>
+    <tfoot>
+
+        </tfoot>
+  </table>
+  
+  <hr>
+
+
+   <div class="modal fade" id="modal-withdraw">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+  {% block jquery %}
+  jQuery(function($){
+
+    $('#withdraw-table').DataTable({
+      destroy: true,
+      dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+       /* "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+ 
+            // Total over all pages
+            total = api
+                .column( 2 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Total over this page
+            pageTotal = api
+                .column( 2, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column( 2 ).footer() ).html(
+
+                '฿'+pageTotal +' ( ฿'+ total +' บาท)'
+            );
+            
+        } */
+
+    });
+
+
+});
+  {% endblock %}
+  </script>
+{% endblock %}

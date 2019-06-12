@@ -1,0 +1,48 @@
+{#
+<script>
+    setInterval(function() {
+      $.ajax({
+        method: "GET",
+        // url:  "/machines/machines_detail/",
+        url: "/machines/machine_detail_coin/",
+        success: function(data) {
+        $('#machine-detail').html(data);
+        }
+      });
+}, 5000)
+ </script> #}
+ <script>
+     function autoRefresh_div() {
+         $(" #machine-detail").load("load.html");
+     }
+     autoRefresh_div();
+     setInterval(autoRefresh_div(), 5000);
+ </script>
+
+  <table border="2" id="machine-detail">
+  <thead>
+    <tr>
+    <td>สถานะ</td>
+    <td>วันที่ซ่อม</td>
+    <td>เงินปัจจุบัน</td>
+    <td>เงินรวม</td>
+    <td>การแจ้งเสีย</td>
+    </tr>
+  </thead>
+  <tbody>
+      {% for machine in machines %}
+    <tr>
+
+      <td>{{ machine.machine_status }}</td>
+      <td>{{ machine.machine_repair }}</td>
+      <td>{{ machine.current_money }}</td>
+      <td>{{ machine.sum_money }}</td>
+      <td>{{ machine.is_broken }}</td>
+
+
+    </tr>
+      {% endfor %}
+
+
+  </tbody>
+  </table>

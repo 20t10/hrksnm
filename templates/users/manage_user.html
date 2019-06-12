@@ -1,0 +1,67 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} การจัดการ ผู้ใช้งาน {% endblock %}
+
+{% block javascript %}
+  <script src="{% static 'users/js/users.js' %}"></script>
+{% endblock %}
+{% block content %}
+
+  <h4 class="page-header mt-2 mb-2">จัดการ ผู้ใช้งาน</h4>
+ {% if user.is_staff or user.is_superuser == True or user.user_type == 1 %}
+
+
+
+  <p>
+    <button type="button" class="btn btn-primary js-create-user" data-url="{% url 'users:user_create' %}">
+      <i class="fas fa-plus"></i>
+      เพิ่มผู้ใช้งาน
+    </button>
+  </p>
+
+  <table class="table  table-hover table-responsive-xs table-bordered" id="user-table">
+    <thead>
+      <tr>
+        <th>username</th>
+        <th>ชื่อ นามสกุล</th>
+        <th>ชื่อ องค์กร</th>
+        <th>email </th>
+        <th>ตำแหน่ง </th>
+        <th>เข้าใช้งานล่าสุด </th>
+        <th>ดำเนินการ</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% include 'users/includes/partial_user_list.html' %}
+    </tbody>
+  </table>
+   <script type="text/javascript">
+  {% block jquery %}
+jQuery(function($){
+    $('#user-table').DataTable({
+    destroy: true,
+    rowGroup: true,
+    order: [[4, 'asc']],
+        rowGroup: {
+            dataSrc: 4
+        }
+    });
+
+   });
+  {% endblock %}
+
+
+
+
+   </script>
+
+
+  <div class="modal fade" id="modal-user">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+ {% endif %}
+{% endblock %}

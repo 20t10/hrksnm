@@ -1,0 +1,59 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} การจัดการ หน้าแรก {% endblock %}
+{% block javascript %}
+<script src="{% static 'sitemanage/js/sitemanage.js' %}"></script>
+{% endblock %}
+{% block content %}
+  <h4 class="page-header mt-2 mb-2 justify-content-center text-center">จัดการ หน้าเว็บไซต์</h4>
+
+   {% if  user.is_superuser == True or user.user_type == 1 %}
+  {% if cs < 1%}
+  <p>
+    <button type="button" class="btn btn-primary js-create-site" data-url="{% url 'site:site_create' %}">
+      <i class="fas fa-plus"></i>
+      เพิ่มข้อมูล
+    </button>
+  </p>
+{% endif %}
+  <table class="table table-bordered  table-hover table-responsive-sm" id="site-table">
+    {% for site in sites %}
+      <tr>
+        <tr>
+        <th style="width: 100px">ไอคอน</th>
+        <td><img src="{{ site.icon.url }}" width="50px"> {{ site.icon }}</td>
+      </tr>
+        <tr>
+          <th>ชื่อ ไซต์</th>
+          <td>{{ site.brand }}</td>
+        </tr>
+        <tr>
+           <th>ข้อความต้อนรับ</th>
+          <td>{{ site.welcome }}</td>
+        </tr>
+       <tr>
+         <th>เกี่ยวกับเรา </th>
+         <td>{{ site.about }}</td>
+       </tr>
+      <tr>
+        <th>การให้บริการ</th>
+        <td>{{ site.service }}</td>
+      </tr>
+      <tr>
+         <th>ติดต่อเรา</th>
+        <td>{{ site.contact }}</td>
+      </tr>
+    {% endfor %}
+      {% include 'sitemanages/includes/partial_site_list.html' %}
+
+  </table>
+
+  <div class="modal fade" id="modal-site">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+   {% endif %}
+{% endblock %}

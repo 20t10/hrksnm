@@ -1,0 +1,51 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} การจัดการเครื่องซักผ้า {% endblock %}
+
+{% block content %}
+
+  
+  <table class="table  table-hover table-responsive-sm" id="machine-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>สาขา</th>
+        
+        <th>สถานะ</th>
+        <th>วันที่ติดตั้ง</th>
+        <th>การซ่อมครั้งถัดไป</th>
+        <th>วันที่เอาเงินออก</th>
+        <th>เงินปัจจุบัน</th>
+        <th>เงินสะสม</th>
+        <th>แจ้งเสีย</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+     {% for machine in machines %}
+  <tr>
+    <td><a href="{% url 'teches:notification_send'  machine.machine_id %}"> {{ machine.machine_id }} <a></td>
+    <td>{{ machine.machine_location.branch_name }}</td>
+    
+    <td>{{ machine.machine_status  }}</td>
+    <td>{{ machine.machine_repair |date:"SHORT_DATE_FORMAT" }}</td>
+    <td>{{ machine.next_fix |date:"SHORT_DATE_FORMAT" }}</td>
+    <td>{{ machine.desp_date  |date:"SHORT_DATE_FORMAT"}}</td>
+    <td>{{ machine.current_money }}</td>
+    <td>{{ machine.sum_money }}</td>
+    <td>{{ machine.is_broken }}</td>
+
+    </td>
+  </tr>
+{% empty %}
+  <tr>
+    <td colspan="8" class="text-center ">ไม่มีเครื่องอยู่</td>
+  </tr>
+{% endfor %}
+
+    </tbody>
+  </table>
+  <hr>
+  
+{% endblock %}

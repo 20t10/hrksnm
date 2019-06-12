@@ -1,0 +1,48 @@
+{% load widget_tweaks %}
+{% for field in form %}
+  <div class="form-group{% if field.errors %} has-error{% endif %}">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {% render_field field class="form-control" %}
+    {% for error in field.errors %}
+      <p class="help-block">{{ error }}</p>
+    {% endfor %}
+  </div>
+{% endfor %}
+
+
+
+{% comment %}
+{% for field in form %}
+  <div class="form-group{% if field.errors %} has-error{% endif %}">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {% render_field field class="form-control" %}
+    {% for error in field.errors %}
+      <p class="help-block">{{ error }}</p>
+    {% endfor %}
+  </div>
+{% endfor %}
+{% for field in form %}
+  <div class="form-group{% if field.errors %} has-error{% endif %}">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {% render_field field class="form-control" %}
+    {% for error in field.errors %}
+      <p class="help-block">{{ error }}</p>
+    {% endfor %}
+  </div>
+{% endfor %}
+<div class="form-group">
+  <label for="id_user_save">ผู้บันทึก</label>
+  <input type="text" name="user_save" maxlength="50" class="form-control" required="" id="id_user_save" value="{{user}}" disabled>
+
+</div>
+<div class="form-group">
+  <label for="id_branch_desp">ไอดีสาขา</label>
+  <input type="text" name="branch_desp" maxlength="12" class="form-control" required="" id="id_branch_desp">
+
+</div>
+<div class="form-group">
+  <label for="id_branch_check_money">จำนวนเงินที่ถอน</label>
+  <input type="number" name="branch_check_money" step="0.01" class="form-control" required="" id="id_branch_check_money">
+
+</div>
+  {% endcomment %}

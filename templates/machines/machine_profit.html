@@ -1,0 +1,87 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} การจัดการเครื่องซักผ้า {% endblock %}
+{% block javascript %}
+  <script src="{% static 'branches/js/withdraw.js' %}"></script>
+{% endblock %}
+{% block content %}
+  <h1 class="page-header text-center">แสดง รายรับ / รายจ่าย สำหรับเครื่องซักผ้า</h1>
+  {% if user.is_staff or user.is_superuser == True or user.user_type == 1 or user.user_type == 2 %}
+  <p>
+    <button type="button" class="btn btn-primary js-create-withdraw" data-url="{% url 'branches:withdraw_create' %}">
+      <span class="glyphicon glyphicon-plus"></span>
+      เพิ่มรายการบันทึกเงิน
+    </button>
+  </p>
+  <table class="table  table-hover table-responsive-sm" id="withdraw-table">
+    <thead>
+      <tr>
+        <th>สาขา</th>
+        <th>ชื่อเครื่อง</th>
+        <th>วันที่บันทึก</th>
+        <th>วันที่แก้ไข</th>
+        <th>จำนวนเงินที่ได้รับ</th>
+        <th>ค่าซ่อม</th>
+        <th>รายได้สุทธิ</th>
+        <th>ดำเนินการ</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      {% for machine in profit %}
+  <tr>  
+    <td>{{ machine.branch }}</td>
+    <td>{{ machine.machine }}</td>
+    <td>{{ machine.check_date |date:"SHORT_DATE_FORMAT" }}</td>
+    <td>{{ machine.check_update |date:"SHORT_DATE_FORMAT" }}</td>
+    <td> {{ machine.check_money }}</td>
+    <td> {{ machine.fix_money }}</td>
+    <td> {{ machine.profit_last }}</td>
+    
+    <td style="width: 150px">
+      <button type="button"
+              class="btn btn-warning btn-sm js-update-withdraw"
+              data-url="{% url 'branches:withdraw_update' machine.id %}">
+        <span class="glyphicon glyphicon-pencil"></span> แก้ไข
+      </button>
+      <button type="button"
+              class="btn btn-danger btn-sm js-delete-withdraw"
+              data-url="{% url 'branches:withdraw_delete' machine.id %}">
+        <span class="glyphicon glyphicon-trash"></span> ลบ
+      </button>
+    </td>
+    
+  </tr>
+{% endfor %}
+ 
+
+
+
+    </tbody>
+  </table>
+
+   <script type="text/javascript">
+  {% block jquery %}
+jQuery(function($){
+    $('#machine-table').DataTable({
+       destroy: true,
+
+    });
+
+   });
+  {% endblock %}
+
+
+
+
+   </script>
+  <hr>
+  <div class="modal fade" id="modal-machine">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}

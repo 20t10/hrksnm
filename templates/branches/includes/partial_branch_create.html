@@ -1,0 +1,88 @@
+<form method="POST" action="{% url 'branches:branch_create' %}" class="js-branch-create-form" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="modal-header">
+      <h4 class="modal-title">เพิ่ม สาขาใหม่</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+  </div>
+<div class="modal-body">
+  <div class="form-group">
+    <label for="id_branch_name"><span style="color:red"><b>*</b></span> ชื่อสถานที่ ไม่เกิน20ตัวอักษร</label>
+    <input type="text" name="branch_name" maxlength="20" class="form-control" required="" id="id_branch_name">
+
+  </div>
+
+  <div class="form-group">
+    <label for="id_branch_img"><span style="color:red"><b>*</b></span> รูปถ่ายสาขา ชื่อไฟล์ไม่เกิน60ตัวอักษร</label>
+    <input type="file" name="branch_img" accept="image/*" class="form-control" required="" id="id_branch_img">
+
+  </div>
+
+  <div class="form-group">
+    <label for="id_branch_address"><span style="color:red"><b>*</b></span> เลขที่อยู่ </label>
+    <input type="text" name="branch_address" maxlength="50" class="form-control" required="" id="id_branch_address">
+
+  </div>
+
+  <div class="form-group">
+    <label for="id_branch_district"><span style="color:red"><b>*</b></span> ตำบล </label>
+    <input type="text" name="branch_district" maxlength="30" class="form-control" required="" id="id_branch_district">
+
+  </div>
+
+  <div class="form-group">
+    <label for="id_branch_amphoe"><span style="color:red"><b>*</b></span> อำเภอ </label>
+    <input type="text" name="branch_amphoe" maxlength="30" class="form-control" required="" id="id_branch_amphoe">
+
+  </div>
+
+  <div class="form-group">
+    <label for="id_branch_province"><span style="color:red"><b>*</b></span> จังหวัด </label>
+    <input type="text" name="branch_province" maxlength="30" class="form-control" required="" id="id_branch_province">
+
+  </div>
+
+  <div class="form-group">
+    <label for="id_branch_zipcode"><span style="color:red"><b>*</b></span> รหัสไปรษณีย์ </label>
+    <input type="text" name="branch_zipcode" maxlength="5" class="form-control" required="" id="id_branch_zipcode">
+
+  </div>
+
+  <div class="form-group">
+    <label for="id_branch_postcode"><span style="color:red"><b>*</b></span> รหัสสาขา รหัสไปรษณีย์ ตามด้วยลำดับสาขา 01-99(ห้ามซ้ำ)</label>
+    <input type="text" name="branch_postcode" maxlength="7" class="form-control" required="" id="id_branch_postcode">
+
+  </div>
+
+  <div class="form-group">
+    <label for="id_tel_number"><span style="color:red"><b>*</b></span> เบอร์โทรศัพท์1 </label>
+    <input type="text" name="tel_number" maxlength="10" pattern="[0-9]{10}" title="ตัวเลข 0-9 10หลัก" class="form-control" required="" id="id_tel_number">
+
+  </div>
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+    <button type="submit" class="btn btn-primary">เพิ่มสาขา</button>
+  </div>
+</form>
+
+<script type="text/javascript">
+jQuery(function($){
+$(document).ready(function(){
+  
+  $.Thailand({
+
+    $district: $('#id_branch_district'), // input ของตำบล
+    $amphoe: $('#id_branch_amphoe'), // input ของอำเภอ
+    $province: $('#id_branch_province'), // input ของจังหวัด
+    $zipcode: $('#id_branch_zipcode'), // input ของรหัสไปรษณีย์
+            });
+
+})
+
+});
+</script>

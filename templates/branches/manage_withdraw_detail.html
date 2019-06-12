@@ -1,0 +1,51 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block javascript %}
+  <script src="{% static 'branches/js/withdraw.js' %}"></script>
+{% endblock %}
+{% block content %}
+{% include 'machines/includes/partial_machine_list.html' %}
+
+
+  <h1 class="page-header mb-3 text-center">บันทึกการเก็บเงินของสาขา</h1>
+
+  <p>
+    <button type="button" class="btn btn-primary js-create-withdraw" data-url="{% url 'branches:withdraw_create' %}">
+      <span class="glyphicon glyphicon-plus"></span>
+      เพิ่มรายการบันทึกเงินของสาขา
+    </button>
+  </p>
+
+  <table class="table  table-hover table-responsive-sm" id="withdraw-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>ผู้บันทึก</th>
+        <th>สาขา </th>
+        <th>วันที่บันทึก</th>
+        <th>จำนวนเงิน</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for withdraw in withdraws %}
+      <tr>
+    <td>{{ withdraw.id }}</td>
+    <td>{{ withdraw.user_save }}</td>
+    <td>{{ withdraw.branch_desp }}</td>
+    <td>{{ withdraw.branch_check_date }}</td>
+    <td>{{ withdraw.branch_check_money }}</td>
+      </tr>
+
+    {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="modal fade" id="modal-withdraw">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

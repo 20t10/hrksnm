@@ -1,0 +1,89 @@
+
+<div class="form-group"><label for="id_user_send">ผู้แจ้งเสีย</label><input type="text" name="user_send" maxlength="100" class="form-control" placeholder="ผู้แจ้งเสีย" title="" id="id_user_send"></div>
+<div class="form-group"><label for="id_machine">เครื่องที่เสีย</label><select name="machine" class="form-control" title="" required id="id_machine">
+  <option value="" selected>---------</option>
+  <option value="1">สาขา1เครื่อง1</option>
+</select></div>
+<div class="form-group"><label for="id_fix_description_choices">สาเหตุ</label><select name="fix_description_choices" class="form-control" title="" required id="id_fix_description_choices">
+  {% for object in object %}
+    <option value="" selected>---------</option>
+  <option value="{{}}">เครื่องค้าง</option>
+  <option value="เหรียญเต็ม">เหรียญเต็ม</option>
+  <option value="เครื่องไม่ทำงาน">เครื่องไม่ทำงาน</option>
+  <option value="ล้างเครื่อง">ล้างเครื่อง</option>
+</select></div>
+<div class="form-group"><label for="id_fix_description_extra">รายละเอียด อื่นๆ</label><textarea name="fix_description_extra" cols="40" rows="10" class="form-control" placeholder="รายละเอียด อื่นๆ" title="" id="id_fix_description_extra">
+</textarea></div>
+<button class="btn btn-lg btn-primary btn-block" type="submit">
+    <i class="fa fa-check" aria-hidden="true"></i> ส่ง
+</button>
+
+
+<div class="card">
+                    <div class="card-header">
+                        <strong class="card-title">Multi Select with Groups</strong>
+                    </div>
+                    <div class="card-body">
+
+                      <select data-placeholder="Your Favorite Football Team" multiple="" class="standardSelect" tabindex="-1" style="display: none;">
+                        <option value="" label="default"></option>
+                        <optgroup label="NFC EAST">
+                          <option>Dallas Cowboys</option>
+                          <option>New York Giants</option>
+                          <option>Philadelphia Eagles</option>
+                          <option>Washington Redskins</option>
+                      </optgroup>
+                      
+                      <optgroup label="NFC NORTH">
+                          <option>Chicago Bears</option>
+                          <option>Detroit Lions</option>
+                          <option>Green Bay Packers</option>
+                          <option>Minnesota Vikings</option>
+                      </optgroup>
+                      <optgroup label="NFC SOUTH">
+                          <option>Atlanta Falcons</option>
+                          <option>Carolina Panthers</option>
+                          <option>New Orleans Saints</option>
+                          <option>Tampa Bay Buccaneers</option>
+                      </optgroup>
+                      <optgroup label="NFC WEST">
+                          <option>Arizona Cardinals</option>
+                          <option>St. Louis Rams</option>
+                          <option>San Francisco 49ers</option>
+                          <option>Seattle Seahawks</option>
+                      </optgroup>
+                      <optgroup label="AFC EAST">
+                          <option>Buffalo Bills</option>
+                          <option>Miami Dolphins</option>
+                          <option>New England Patriots</option>
+                          <option>New York Jets</option>
+                      </optgroup>
+                      <optgroup label="AFC NORTH">
+                          <option>Baltimore Ravens</option>
+                          <option>Cincinnati Bengals</option>
+                          <option>Cleveland Browns</option>
+                          <option>Pittsburgh Steelers</option>
+                      </optgroup>
+                      <optgroup label="AFC SOUTH">
+                          <option>Houston Texans</option>
+                          <option>Indianapolis Colts</option>
+                          <option>Jacksonville Jaguars</option>
+                          <option>Tennessee Titans</option>
+                      </optgroup>
+                      <optgroup label="AFC WEST">
+                          <option>Denver Broncos</option>
+                          <option>Kansas City Chiefs</option>
+                          <option>Oakland Raiders</option>
+                          <option>San Diego Chargers</option>
+                      </optgroup>
+                  </select><div class="chosen-container chosen-container-multi" title="" style="width: 100%;"><ul class="chosen-choices">
+  <li class="search-field">
+    <input class="chosen-search-input default" type="text" autocomplete="off" value="Your Favorite Football Team" tabindex="5" style="width: 187px;">
+  </li>
+</ul>
+<div class="chosen-drop">
+  <ul class="chosen-results"><li class="group-result">NFC EAST</li><li class="active-result group-option" data-option-array-index="2" style="">Dallas Cowboys</li><li class="active-result group-option" data-option-array-index="3" style="">New York Giants</li><li class="active-result group-option" data-option-array-index="4" style="">Philadelphia Eagles</li><li class="active-result group-option" data-option-array-index="5" style="">Washington Redskins</li><li class="group-result">NFC NORTH</li><li class="active-result group-option" data-option-array-index="7" style="">Chicago Bears</li><li class="active-result group-option" data-option-array-index="8" style="">Detroit Lions</li><li class="active-result group-option" data-option-array-index="9" style="">Green Bay Packers</li><li class="active-result group-option" data-option-array-index="10" style="">Minnesota Vikings</li><li class="group-result">NFC SOUTH</li><li class="active-result group-option" data-option-array-index="12" style="">Atlanta Falcons</li><li class="active-result group-option" data-option-array-index="13" style="">Carolina Panthers</li><li class="active-result group-option" data-option-array-index="14" style="">New Orleans Saints</li><li class="active-result group-option" data-option-array-index="15" style="">Tampa Bay Buccaneers</li><li class="group-result">NFC WEST</li><li class="active-result group-option" data-option-array-index="17" style="">Arizona Cardinals</li><li class="active-result group-option" data-option-array-index="18" style="">St. Louis Rams</li><li class="active-result group-option" data-option-array-index="19" style="">San Francisco 49ers</li><li class="active-result group-option" data-option-array-index="20" style="">Seattle Seahawks</li><li class="group-result">AFC EAST</li><li class="active-result group-option" data-option-array-index="22" style="">Buffalo Bills</li><li class="active-result group-option" data-option-array-index="23" style="">Miami Dolphins</li><li class="active-result group-option" data-option-array-index="24" style="">New England Patriots</li><li class="active-result group-option" data-option-array-index="25" style="">New York Jets</li><li class="group-result">AFC NORTH</li><li class="active-result group-option" data-option-array-index="27" style="">Baltimore Ravens</li><li class="active-result group-option" data-option-array-index="28" style="">Cincinnati Bengals</li><li class="active-result group-option" data-option-array-index="29" style="">Cleveland Browns</li><li class="active-result group-option" data-option-array-index="30" style="">Pittsburgh Steelers</li><li class="group-result">AFC SOUTH</li><li class="active-result group-option" data-option-array-index="32" style="">Houston Texans</li><li class="active-result group-option" data-option-array-index="33" style="">Indianapolis Colts</li><li class="active-result group-option" data-option-array-index="34" style="">Jacksonville Jaguars</li><li class="active-result group-option" data-option-array-index="35" style="">Tennessee Titans</li><li class="group-result">AFC WEST</li><li class="active-result group-option" data-option-array-index="37" style="">Denver Broncos</li><li class="active-result group-option" data-option-array-index="38" style="">Kansas City Chiefs</li><li class="active-result group-option" data-option-array-index="39" style="">Oakland Raiders</li><li class="active-result group-option" data-option-array-index="40" style="">San Diego Chargers</li></ul>
+</div></div>
+
+              </div>
+          </div>

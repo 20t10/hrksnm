@@ -1,0 +1,39 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block javascript %}
+  <script src="{% static 'branches/js/monthly.js' %}"></script>
+{% endblock %}
+{% block content %}
+  <h1 class="page-header mb-3 text-center"> บันทึกเงินรายเดือน สำหรับพนักงาน</h1>
+  {% if user.is_staff or user.is_superuser == True %}
+  <p>
+    <button type="button" class="btn btn-primary js-create-monthly" data-url="{% url 'branches:monthly_create' %}">
+      <span class="glyphicon glyphicon-plus"></span>
+      เพิ่มรายการบันทึกเงินรายเดือน
+    </button>
+  </p>
+
+  <table class="table  table-hover table-responsive-sm" id="monthly-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>ผู้บันทึก</th>
+        <th>สาขา </th>
+        <th>วันที่บันทึก</th>
+        <th>จำนวนเงิน</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% include 'branches/monthly/partial_monthly_list.html' %}
+    </tbody>
+  </table>
+
+  <div class="modal fade" id="modal-monthly">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}

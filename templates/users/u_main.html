@@ -1,0 +1,108 @@
+
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} หน้าหลัก | SNM {% endblock %}
+{% block content %}
+
+<div class="row justify-content-sm-center">
+  <div class="col-sm">
+<h3 class=" text-muted ">สวัสดีคุณ {{ user}}</h3>
+<h3 class=" text-muted "> ชื่อ {{user.first_name}} นามสกุล {{user.last_name}}</h3>
+
+<h3 class="text-muted">
+ตำแหน่ง
+{% if user.is_superuser ==  True or user.user_type == 1 %}
+แอดมิน
+{% elif user.user_type == 2 %}
+พนักงาน
+{% elif user.user_type == 3 %}
+เจ้าของสาขา
+{% elif user.user_type == 4 %}
+ช่าง
+</h3>
+{% endif %}
+
+  </div>
+  <div class="col">
+      <h4 class="text-muted text-right mb-2">
+        <a href="{% url 'users:change_password' %}" class="btn btn-info btn-sm"><i class="fas fa-key"></i> เปลี่ยนรหัสผ่าน</a></h4>
+    <h4 class="text-muted text-right">ล็อกอินล่าสุด {{user.last_login}}</h4>
+
+  </div>
+
+
+</div>
+
+<div class="row justify-content-sm-center">
+    {% if user.is_superuser ==  True or user.user_type == 1 %}
+  <div class="col-sm-12 col-xl-3 col-md-4">
+  <h5 class="text-center text-muted mb-5 mt-5"> จัดการผู้ใช้</h5>
+  <img class="img-fluid mb-5 d-block mx-auto" src="{% static 'images/menu/users.png' %}" alt="" width="200px">
+  <a href="{% url 'users:user_list'%}" class="btn btn-outline-success btn-lg btn-block">จัดการผู้ใช้</a>
+
+  </div>
+  <div class="col-sm-12 col-xl-3 col-md-4">
+    <h5 class="text-center text-muted mb-5 mt-5">  จัดการสาขา</h5>
+
+  <img class="img-fluid mb-5 d-block mx-auto" src="{% static 'images/menu/branch.png' %}" alt="" width="200px">
+
+ <a href="{% url 'branches:branches_list'%}" class="btn btn-outline-success btn-lg btn-block">จัดการสาขา</a>
+  </div>
+  <div class="col-sm-12 col-xl-3 col-md-4">
+    <h5 class="text-center text-muted mb-5 mt-5">จัดการเครื่องซักผ้า</h5>
+
+  <img class="img-fluid mb-5 d-block mx-auto" src="{% static 'images/menu/machine.png' %}" alt="" width="200px">
+ <a href="{% url 'machines:machine_list'%}" class="btn btn-outline-success btn-lg btn-block">จัดการเครื่องซักผ้า</a>
+  </div>
+<div class="col-sm-12 col-xl-3 col-md-4">
+<h5 class="text-center text-muted mb-5 mt-5">จัดการการแจ้งเตือน</h5>
+<img class="img-fluid mb-5 d-block mx-auto" src="{% static 'images/menu/noti.png' %}" alt="" width="200px">
+<a href="{% url 'teches:todo_list' %}" class="btn btn-outline-success btn-lg btn-block">จัดการการแจ้งเตือน</a>
+</div>
+{% endif %}
+
+{% if user.user_type == 2 %}
+    <div class="col-sm-12 col-lg-3 col-md-3">
+<h5 class="text-center text-muted mb-5 mt-5">   จัดการ การแจ้งเตือน</h5>
+<img class="img-fluid mb-5 d-block mx-auto" src="{% static 'images/menu/noti.png' %}" alt="" width="200px">
+<a href="{% url 'teches:noti_list' %}" class="btn btn-outline-success btn-lg btn-block">จัดการ การแจ้งเตือน</a>
+</div>
+      <div class="col-sm-12 col-lg-3 col-md-3">
+    <h5 class="text-center text-muted mb-5 mt-5">   บันทึกเงินรายเดือน</h5>
+
+  <img class="img-fluid mb-5 d-block mx-auto" src="{% static 'images/menu/machine.png' %}" alt="" width="200px">
+ <a href="{% url 'branches:withdraw_list'%}" class="btn btn-outline-success btn-lg btn-block">บันทึกเงินรายเดือน</a>
+  </div>
+    {% endif %}
+
+  {% if user.user_type == 3 %}
+      <div class="col-sm-12 col-lg-3 col-md-3">
+    <h5 class="text-center text-muted mb-5 mt-5">  ดูข้อมูล สาขา</h5>
+
+  <img class="img-fluid mb-5 d-block mx-auto" src="{% static 'images/menu/branch.png' %}" alt="" width="200px">
+
+ <a href="{% url 'owner:manage_branch'  %}" class="btn btn-outline-success btn-lg btn-block">ดูข้อมูล สาขา</a>
+  </div>
+  <div class="col-sm-12 col-lg-3 col-md-3">
+    <h5 class="text-center text-muted mb-5 mt-5"> ดูรายได้ </h5>
+
+  <img class="img-fluid mb-5 d-block mx-auto" src="{% static 'images/menu/machine.png' %}" alt="" width="200px">
+
+ <a href="{% url 'owner:benefit_branch' %}" class="btn btn-outline-success btn-lg btn-block">ดูรายได้</a>
+
+  </div>
+
+    {% endif %}
+    {% if user.user_type == 4  %}
+
+<div class="col-sm-12 col-lg-3 col-md-3">
+<h5 class="text-center text-muted mb-5 mt-5">ดูรายการซ่อม </h5>
+<img class="img-fluid mb-5 d-block mx-auto" src="{% static 'images/menu/noti.png' %}" alt="" width="200px">
+<a href="{% url 'teches:tech_todo' %}" class="btn btn-outline-success btn-lg btn-block">  ดูรายการซ่อม</a>
+</div>
+{% endif %}
+
+
+</div>
+
+{% endblock %}

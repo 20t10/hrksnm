@@ -1,0 +1,30 @@
+{% for month in months %}
+  <tr>
+    <td>{{ month.id }}</td>
+    <td>{{ month.user_save.username }}</td>
+    <td>{{ month.branch.branch_name }}</td>
+    <td>{{ month.check_date |date:"D d M Y"}}</td>
+    <td>{{ month.check_money }}</td>
+
+    <td style="width: 150px">
+     {% if user.is_staff %}
+      <button type="button"
+              class="btn btn-warning btn-sm js-update-monthly"
+              data-url="{% url 'branches:monthly_update' month.id %}">
+        <span class="glyphicon glyphicon-pencil"></span> แก้ไข
+      </button>
+      {% endif %}
+      {% if user.is_superuser %}
+      <button type="button"
+              class="btn btn-danger btn-sm js-delete-monthly"
+              data-url="{% url 'branches:monthly_delete' month.id %}">
+        <span class="glyphicon glyphicon-trash"></span> ลบ
+      </button>
+      {% endif %}
+    </td>
+  </tr>
+{% empty %}
+  <tr>
+    <td colspan="8" class="text-center ">ไม่มีรายการ</td>
+  </tr>
+{% endfor %}

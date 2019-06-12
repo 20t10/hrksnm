@@ -1,0 +1,117 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} ประวัติการซ่อม {% endblock %}
+{% block javascript %}
+  <script src="{% static 'js/jquery-file-upload/vendor/jquery.ui.widget.js' %}"></script>
+  <script src="{% static 'js/jquery-file-upload/jquery.iframe-transport.js' %}"></script>
+  <script src="{% static 'js/jquery-file-upload/jquery.fileupload.js' %}"></script>
+  <script src="{% static 'technician/js/tech_send.js' %}"></script>
+{% endblock %}
+{% block content %}
+
+  <h4 class="page-header mt-2 mb-2">ประวัติการซ่อม รายการซ่อมบำรุง / ซ่อมทั่วไป</h4>
+  <table class="table  table-hover table-responsive-sm mt-2 mb-2" id="his-work-table">
+    <thead>
+      <tr>
+        <th>สาขา </th>
+         <th>เบอร์โทรสาขา</th>
+        <th>วันที่มอบหมายงาน</th>
+        <th>ช่างที่รับมอบหมาย</th>
+        <th>สถานะ</th>
+        <th>ค่าใช้จ่าย</th>
+       
+      </tr>
+    </thead>
+    <tbody>
+     {% for maintaine in maintaines_finish %}
+  <tr>
+    <td>{{ maintaine.branch.branch_name }}</td>
+     <td>{{ maintaine.branch.tel_number }}</td>
+    <td>{{ maintaine.date }}</td>
+    <td>{{ maintaine.tech_name }}</td>
+
+    <td>
+        {% if maintaine.status == 1 %}
+       <strong class="text-secondary">กำลังดำเนินการ</strong>
+        {% elif maintaine.status == 2 %}
+        <strong class="text-success">ซ่อมเรียบร้อย</strong>
+        {% elif maintaine.status == 3 %}
+        <strong class="text-danger">ซ่อมไม่ได้</strong>
+
+        {% endif %}
+    </td>
+       <td >
+         {{ maintaine.price }}
+
+
+    </td>
+
+   
+  </tr>
+{% empty %}
+  <tr>
+   <td colspan="8" >ไม่มีรายการอยู่ </td>
+  </tr>
+{% endfor %}
+    </tbody>
+     <tfoot>
+            <tr>
+                <th colspan="5" style="text-align:right">Total:</th>
+                <th></th>
+            </tr>
+        </tfoot>
+  
+  </table>
+  <hr>
+  <script type="text/javascript">
+{% block jquery %}
+jQuery(function($){
+  $('#his-work-table').DataTable({
+  destroy: true,
+  "footerCallback": function ( row, data, start, end, display ) {
+           var api = this.api(), data;
+
+
+           // Remove the formatting to get integer data for summation
+           var intVal = function ( i ) {
+               return typeof i === 'string' ?
+                   i.replace(/[\$,]/g, '')*1 :
+                   typeof i === 'number' ?
+                       i : 0;
+           };
+
+           // Total over all pages
+           total = api
+               .column( 5 )
+               .data()
+               .reduce( function (a, b) {
+                   return intVal(a) + intVal(b);
+               }, 0 );
+
+           // Total over this page
+           pageTotal = api
+               .column( 5, { page: 'current'} )
+               .data()
+               .reduce( function (a, b) {
+                   return intVal(a) + intVal(b);
+               }, 0 );
+
+           // Update footer
+           $( api.column( 5 ).footer() ).html(
+
+               '฿'+pageTotal +' ( ทั้งหมด '+ total +' บาท)'
+           );
+
+       }
+
+
+  });
+});
+
+
+{% endblock %}
+</script>
+
+
+
+{% endblock %}

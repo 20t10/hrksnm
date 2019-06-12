@@ -1,0 +1,155 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} เทียบอัตรา ซ่อมเสร็จ / ซ่อมไม่ได้ {% endblock %}
+{% block impJs%}
+<script  src="{% static 'js/Chart.js' %}"></script>
+{% endblock%}
+<script type="text/javascript">
+{% block jquery %}
+var endpoint = '/teches/stat-noti/'
+var defaultData = []
+var labels = [];
+jQuery.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+        console.log(data.default)
+        labels = data.labels
+        defaultData = data.default
+        //console.log(data.default.detail)
+        setChart()
+    },
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)
+    }
+})
+
+function setChart(){
+    var ctx = document.getElementById("myChart");
+    var ctx2 = document.getElementById("myChart2");
+    var myChart = new Chart(ctx2, {
+    type: 'pie',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: '# จำนวนครั้ง',
+            data: defaultData,
+            backgroundColor: [
+                'rgba(255, 204, 204, 1)',
+                'rgba(51, 0153, 255, 1)',
+                
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+
+    var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: '# จำนวนครั้ง',
+            data: defaultData,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+}
+// var ctx = document.getElementById("myChart");
+{% endblock %}
+</script>
+{% block content %}
+<h2 class="page-header mt-2 mb-2 text-center">กราฟแสดง เทียบจำนวนการ ซ่อมเสร็จ / ซ่อมไม่ได้ </h2>
+<div class="container">
+
+<div class='row'>
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-body">          
+             <canvas id="myChart2" width="400" height="400"></canvas>
+            
+              
+        </div>
+    </div>
+</div><!-- /# column -->
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-body">          
+            
+              <canvas id="myChart" width="400" height="400"></canvas>
+              
+        </div>
+    </div>
+</div><!-- /# column -->
+</div>
+<hr>
+<table  class="table table-responsive-sm" border="1" id="machine-detail">
+  <thead>
+    <tr>
+    <td>จำนวนครั้ง / ที่ซ่อมเสร็จ</td>    
+    <td>จำนวนครั้ง / ที่ซ่อมไม่เสร็จ</td>    
+    </tr>
+  </thead>
+  <tbody>      
+    <tr>
+    {% for fn in finnish %}
+      <td>{{ finnish.work_status__count }}</td>  
+    {% endfor %}
+    {% for fn in unfinnish %}
+    <td>{{ unfinnish.work_status__count }}</td>    
+    {% endfor %}
+    </tr>
+   
+  </tbody>
+ 
+  </table>
+      <a href="{% url 'teches:alllog_todo' %} " class="btn btn-info btn-large">
+      <i class="fas fa-search-plus"></i> ดูข้อมูล
+      </a>
+
+</div>
+
+
+
+{% endblock %}

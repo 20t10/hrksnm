@@ -1,0 +1,27 @@
+{% for sl in sls %}
+  <tr>
+   <td> <img src="{{ sl.img.url }}"  width="50px"> {{ sl.img }}</td>
+     <td>{{ sl.detail }}</td>
+    <td></td>
+    <td style="width: 150px">
+      <button type="button"
+              class="btn btn-warning btn-sm js-update-slide"
+              data-url="{% url 'site:slide_update' sl.service_id %}">
+        <i class="fas fa-pen"></i> แก้ไข
+      </button>
+
+      {% if request.user.is_superuser == True %}
+      <button type="button"
+              class="btn btn-danger btn-sm js-delete-slide"
+              data-url="{% url 'site:slide_delete' sl.service_id %}">
+        <i class="fas fa-times"></i> ลบ
+      </button>
+      {% endif %}
+
+    </td>
+  </tr>
+{% empty %}
+  <tr>
+    <td colspan="8" class="text-center ">ไม่มี ข้อมูล</td>
+  </tr>
+{% endfor %}

@@ -1,0 +1,52 @@
+{% load static %}<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>เข้าใช้งานระบบ </title>
+    <link rel="stylesheet" href="{% static 'login/login.css' %}">
+      <link rel="stylesheet" href="{% static 'login/all.css' %}">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css">
+  </head>
+  <body>
+<body>
+  {% if user.is_anonymous %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        {% block content %}
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">ลงชื่อเข้าใช้ระบบ</h5>
+            <form class="form-signin" method="post">
+              {% csrf_token %}
+                  {{ form.as_p }}
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">เข้าสู่ระบบ</button>
+
+              <hr class="my-4">
+            </form>
+          </div>
+        </div>
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="container text-center mt-5 jumbotron">
+    <h3> คุณได้ลงชื่อเข้าใช้ โดย username <strong>{{ user }}</strong> </h3>
+    <p>
+      <a class="btn btn-info" href="{% url 'users:dashboard' %}">ไปหน้า Dashboard </a>
+    </p>
+    <p>
+    <a  class="btn btn-secondary" href="{% url 'index' %}"> ไปหน้าแรก</a>
+    </p>
+
+  </div>
+
+  {% endif %}
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  </body>
+</html>

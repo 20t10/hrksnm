@@ -1,0 +1,46 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} การจัดการ เจ้าของกิจการ {% endblock %}
+{% block javascript %}
+  <script src="{% static 'owners/js/owners.js' %}"></script>
+{% endblock %}
+{% block content %}
+  <h4 class="page-header mt-2 mb-2 text-center">จัดการเจ้าของสาขา</h4>
+  <p>
+    <button type="button" class="btn btn-primary js-create-owner" data-url="{% url 'owners:owner_create' %}">
+      <i class="fas fa-plus"></i>
+      เพิ่มเจ้าของเข้าสาขา
+    </button>
+  </p>
+  <table class="table  table-hover table-responsive-sm" id="owner-table">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>ชื่อเจ้าของสาขา</th>
+        <th>สาขา </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% include 'owners/includes/partial_owner_list.html' %}
+    </tbody>
+  </table>
+   <script type="text/javascript">
+  {% block jquery %}
+  jQuery(function($){
+    $('#owner-table').DataTable({
+      destroy: true,
+
+    });
+  });
+
+  {% endblock %}
+ </script>
+  <div class="modal fade" id="modal-owner">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

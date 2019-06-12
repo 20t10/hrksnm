@@ -1,0 +1,39 @@
+{% for branch in branches %}
+  <tr>
+    <td>{{ branch.branch_name }}</td>
+    <td>
+      {{ branch.branch_address }}
+      {{ branch.branch_district }}
+      {{ branch.branch_amphoe }}
+      {{ branch.branch_province }}
+    </td>
+    <td>{{ branch.branch_postcode }}</td>
+    <td>{{ branch.tel_number }} 
+    {% if branch.tel_number_two == None or branch.tel_number_three == None %} 
+    {% else %} 
+        ,{{ branch.tel_number_two }} 
+        {% endif %}
+        {% if branch.tel_number_three == None %}
+        {% else %} 
+        ,{{ branch.tel_number_three }}
+      {% endif %}
+    </td>
+    <td style="width: 150px">
+      <button type="button"
+              class="btn btn-warning btn-sm js-update-branch"
+              data-url="{% url 'branches:branch_update' branch.branch_id %}">
+       <i class="fas fa-pen"></i> แก้ไข
+      </button>
+      <button type="button"
+              class="btn btn-danger btn-sm js-delete-branch"
+              data-url="{% url 'branches:branch_delete' branch.branch_id %}">
+         <i class="fas fa-times"></i> ลบ
+      </button>
+    </td>
+  </tr>
+{% empty %}
+  <tr>
+    <td colspan="8" class="text-center bg-warning">ไม่มีสาขา </td>
+  </tr>
+
+{% endfor %}

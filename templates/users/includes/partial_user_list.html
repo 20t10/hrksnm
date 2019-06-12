@@ -1,0 +1,52 @@
+{% for user in users %}
+  <tr>
+
+    <td>{{ user.username }}</td>
+    <td>{{ user.get_full_name }}</td>
+    <td>
+
+      {% if user.organization == None %}
+
+      {% else %}
+      {{ user.organization }}
+      
+      {% endif %}
+    </td>
+    <td>{{ user.email }}</td>
+    <td>
+      {% if user.is_superuser == True  %}
+        super admin
+      {% elif  user.user_type == 1  %}
+        แอดมิน
+      {% elif user.user_type == 2 %}
+        พนักงาน
+      {% elif user.user_type == 3 %}
+          เจ้าของกิจการ
+      {% elif user.user_type == 4 %}
+        ช่างซ่อม
+      {% endif %}
+
+    </td>
+     <td>{{ user.last_login |date:"SHORT_DATE_FORMAT" }}</td>
+    <td style="width: 150px">
+      <button type="button"
+              class="btn btn-warning btn-sm js-update-user"
+              data-url="{% url 'users:user_update' user.user_id %}">
+        <i class="fas fa-pen"></i> แก้ไข
+      </button>
+
+      {% if user.user_id > 1 %}
+      <button type="button"
+              class="btn btn-danger btn-sm js-delete-user"
+              data-url="{% url 'users:user_delete' user.user_id %}">
+        <i class="fas fa-times"></i> ลบ
+      </button>
+
+      {% endif %}
+    </td>
+  </tr>
+{% empty %}
+  <tr>
+    <td colspan="8" class="text-center ">ไม่มี ผู้ใช้งาน</td>
+  </tr>
+{% endfor %}

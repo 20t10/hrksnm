@@ -1,0 +1,153 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} ประวัติการซ่อม จากรายการแจ้งเตือน{% endblock %}
+{% block javascript %}
+  <script src="{% static 'js/jquery-file-upload/vendor/jquery.ui.widget.js' %}"></script>
+  <script src="{% static 'js/jquery-file-upload/jquery.iframe-transport.js' %}"></script>
+  <script src="{% static 'js/jquery-file-upload/jquery.fileupload.js' %}"></script>
+  <script src="{% static 'technician/js/tech_send.js' %}"></script>
+{% endblock %}
+{% block content %}
+
+  <h4 class="page-header mt-2 mb-2">ประวัติการซ่อม รายการที่ซ่อมได้</h4>
+  <table class="table  table-hover table-responsive-sm mt-2 mb-2" id="work-table">
+    <thead>
+      <tr>
+        <th>ชื่อ เครื่อง</th>
+        <th>สาขา </th>
+        <th>เบอร์โทรติดต่อ</th>
+        <th>ช่าง</th>
+        <th>วันที่มอบหมายงาน</th>
+         <th>สาเหตุ</th>
+        <th>สถานะงาน</th>
+        <th>ค่าใช้จ่าย</th>
+      </tr>
+    </thead>
+
+      <tbody>
+      {% for hw in hiswork %}
+        <tr>
+          <td>{{ hw.work_machine.machine_name }}</td>
+          <td>{{ hw.work_location }}</td>
+          <td>{{ hw.work_location.tel_number }}</td>
+          <td>{{ hw.tech_name }}</td>
+          <td>{{ hw.todo_date }}</td>
+          <td>{{ hw.work_fix }}</td>
+         <td>
+             {% if hw.work_status == 1 %}
+            <strong class="text-secondary">กำลังดำเนินการ</strong>
+             {% elif hw.work_status == 2 %}
+             <strong class="text-success">ซ่อมเรียบร้อย</strong>
+             {% elif hw.work_status == 3 %}
+             <strong class="text-danger">ซ่อมไม่ได้</strong>
+             {% endif %}
+         </td>
+         <td> {{ hw.price }}</td>
+       </tr>
+       {% endfor %}
+    </tbody>
+    <tfoot>
+            <tr>
+                <th colspan="7" style="text-align:right">Total:</th>
+                <th></th>
+            </tr>
+        </tfoot>
+    
+
+  </table>
+
+  <hr>
+  <h4 class="page-header mt-2 mb-2">ประวัติการซ่อม รายการซ่อมไม่ได้</h4>
+  <table class="table  table-hover table-responsive-sm mt-2 mb-2" id='fail-table'>
+    <thead>
+      <tr>
+         <th>ชื่อ เครื่อง</th>
+        <th>สาขา </th>
+        <th>เบอร์โทรติดต่อ</th>
+        <th>ช่าง</th>
+        <th>วันที่มอบหมายงาน</th>
+         <th>สาเหตุ</th>
+        <th>สถานะงาน</th>
+        <th>ค่าใช้จ่าย</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for hw in failwork %}
+        <tr>
+          <td>{{ hw.work_machine.machine_name }}</td>
+          <td>{{ hw.work_location }}</td>
+          <td>{{ hw.work_location.tel_number }}</td>
+          <td>{{ hw.tech_name }}</td>
+          <td>{{ hw.todo_date }}</td>
+          <td>{{ hw.work_fix }}</td>
+         <td>
+             {% if hw.work_status == 1 %}
+            <strong class="text-secondary">กำลังดำเนินการ</strong>
+             {% elif hw.work_status == 2 %}
+             <strong class="text-success">ซ่อมเรียบร้อย</strong>
+             {% elif hw.work_status == 3 %}
+             <strong class="text-danger">ซ่อมไม่ได้</strong>
+             {% endif %}
+         </td>
+            <td> {{ hw.price }}</td>
+
+       </tr>
+       {% endfor %}
+    </tbody>
+  </table>
+  <script type="text/javascript">
+   {% block jquery %}
+   jQuery(function($){
+    $('#work-table').DataTable({
+      destroy: true,
+      dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+      "footerCallback": function ( row, data, start, end, display ) {
+           var api = this.api(), data;
+
+
+           // Remove the formatting to get integer data for summation
+           var intVal = function ( i ) {
+               return typeof i === 'string' ?
+                   i.replace(/[\$,]/g, '')*1 :
+                   typeof i === 'number' ?
+                       i : 0;
+           };
+
+           // Total over all pages
+           total = api
+               .column( 7 )
+               .data()
+               .reduce( function (a, b) {
+                   return intVal(a) + intVal(b);
+               }, 0 );
+
+           // Total over this page
+           pageTotal = api
+               .column( 7, { page: 'current'} )
+               .data()
+               .reduce( function (a, b) {
+                   return intVal(a) + intVal(b);
+               }, 0 );
+
+           // Update footer
+           $( api.column( 7 ).footer() ).html(
+
+               '฿'+pageTotal +' ( ฿'+ total +' บาท)'
+           );
+
+       }
+
+    });
+
+    $('#fail-table').DataTable({
+      destroy: true,
+
+    });
+  });
+
+  {% endblock %}
+  </script>
+{% endblock %}

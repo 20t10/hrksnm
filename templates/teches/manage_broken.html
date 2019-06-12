@@ -1,0 +1,54 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} การจัดการ การซ่อม {% endblock %}
+{% block javascript %}
+  <script src="{% static 'technician/js/update_noti.js' %}"></script>
+{% endblock %}
+{% block content %}
+
+<h1 class="page-header mt-2 mb-2 text-center">รายการแจ้งเครื่องเสีย</h1>
+<p>
+  <button type="button" class="btn btn-primary js-create-noti" data-url="{% url 'teches:noti_create' %}">
+    <i class="fas fa-plus"></i>
+    เพิ่มรายการ
+  </button>
+</p>
+  <table class="table  table-hover table-responsive-sm  mb-2" id="noti-table">
+    <thead>
+      <tr>
+        <th>Module เครื่อง</th>
+        <th>ชื่อ เครื่อง</th>
+        <th>สาขา </th>
+        <th>วันที่แจ้ง</th>
+        <th>สาเหตุ</th>
+        <th>ผู้แจ้ง</th>
+        <th>ผู้รับเรื่อง</th>
+        <th>สถานะ</th>
+        <th>ดำเนินการ</th>
+
+      </tr>
+    </thead>
+    <tbody>
+     {% include "teches/fix_update/partial_noti_list.html" %}
+    </tbody>
+  </table>
+  <script type="text/javascript">
+   {% block jquery %}
+jQuery(function($){
+    $('#noti-table').DataTable({
+      destroy: true,
+
+    });
+   });
+  {% endblock %}
+  </script>
+  <div class="modal fade" id="modal-noti">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+  <hr>
+
+
+{% endblock %}

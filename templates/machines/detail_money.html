@@ -1,0 +1,108 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+
+{% block title %} แสดงข้อมูลเครื่องซักผ้า {% endblock %}
+
+
+{% block javascript %}
+  <script src="{% static 'machines/js/machines.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+{% if user.is_technician or user.is_anonymous == True %}
+ไม่มีหน้าดังกล่าว
+{% endif %}
+{% if user.is_owner or user.is_staff or user.is_superuser %}
+
+  <h1 class="page-header">แสดงข้อมูลการใช้งานเครื่องซักผ้า</h1>
+
+
+
+<form class="form-inline my-2 my-lg-0 mt-2 mb-2" method="get">
+<input class="form-control mr-sm-2 mt-2 mb-2"  type="search" name="search" placeholder="ตัวอย่าง เช่น 2018-12-20" aria-label="Search">
+<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
+  <table class="table" id="machine-table">
+    <thead>
+      <tr>
+        <th>#</th>
+
+        <th>เงินปัจจุบัน</th>
+        <th>เงินสะสม</th>
+        <th>แจ้งเสีย</th>
+         <th>วันที่ติดตั้ง</th>
+        <th>การซ่อมครั้งถัดไป</th>
+        <th>วันที่เอาเงินออก</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for mf in mf %}
+    <tr>
+    <td>{{ mf.id  }}</td>
+
+    <td>{{ mf.current_money  }}</td>
+    <td>{{ mf.sum_money }}</td>
+    <td>{{ mf.is_broken }}</td>
+    <td>{{ mf.machine_repair |date:"SHORT_DATE_FORMAT" }}</td>
+    <td>{{ mf.next_fix |date:"SHORT_DATE_FORMAT" }}</td>
+    <td>{{ mf.desp_date  |date:"SHORT_DATE_FORMAT"}}</td>
+    </tr>
+
+
+
+{% endfor %}
+
+
+    </tbody>
+    <tfoot>
+      <tr>
+        <td> <a href="{% url 'branches:withdraw_list' %}" class="btn btn-primary"> บันทึกเงินโดยเจ้าของกิจการ </a> </td>
+        {% if user.is_staff %}
+        <td><a href="{% url 'branches:monthly_list' %}" class="btn btn-primary"> บันทึกเงินโดยเจ้าพนักงาน </a></td>
+        {% endif %}
+      </tr>
+    </tfoot>
+  </table>
+          {% if mf %}
+            <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-left">
+                      {% if mf.has_previous %}
+                      <li class="page-item"><a class="page-link" href="?mf={{ mf.previous_page_number }}">  &laquo; Previous </a></li>
+                      {% else %}
+                      <li class="page-item disabled"><a class="page-link" href="#"><span>&laquo;</span></a></li>
+                      {% endif %}
+
+                      {% for i in mf.paginator.page_range %}
+                      {% if  mf.number == i %}
+                        <li class="page-item active">
+                          <a class="page-link" href="#">{{ mf.number }} <span class="sr-only">(current)</span>
+                          </a>
+                        </li>
+                      {% else %}
+                      <li class="page-item"><a class="page-link" href="?mf={{ i }}">{{ i }}</a></li>
+                      {% endif %}
+                      {% endfor %}
+
+                      {% if mf.has_next %}
+                      <li class="page-item"><a class="page-link" href="?mf={{ mf.next_page_number }}" >Next &raquo;  </a></li>
+                      {% else %}
+                      <li class="page-item disabled"><a class="page-link" href="#"><span>&raquo;</span></a></li>
+                      {% endif %}
+                    </ul>
+                    </nav>
+
+          {% endif %}
+  <hr>
+  <div class="modal fade" id="modal-machine">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+
+
+  {% endif %}
+{% endblock %}

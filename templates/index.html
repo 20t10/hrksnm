@@ -1,0 +1,274 @@
+{% load static %}<!DOCTYPE HTML>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ร้านเครื่องซักผ้าหยอดเหรียญ &mdash; สายน้ำมิ้น ให้บริการ ซ่อมเครื่องซักผ้า เครื่องซักผ้าหยอดเหรียญ</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="สายน้ำมิ้นให้บริการ เครื่องซักผ้าหยอดเหรียญ ซ่อมเครื่องซักผ้า" />
+	<meta name="keywords" content="เครื่องซักผ้าหยอดเหรียญ ซ่อมเครื่องซักผ้า สายน้ำมิ้น" />
+	<meta name="author" content="สายน้ำมิ้น" />
+
+	{% for man in manage_site %}
+  <link rel="shortcut icon" type="image/png" href="media/{{ man.icon }}"/>
+	{% endfor %}
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,700" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="{% static 'css/scrolltable.css' %}">
+	<link rel="stylesheet" href="{% static 'index/service.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css"/>
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+	<!-- Themify Icons-->
+	<link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+	<!-- Bootstrap -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js.map"></script>
+	<!-- jQuery -->
+
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+	<!-- Owl Carousel  -->
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+	<!-- Modernizr JS -->
+	<script src="{% static 'js/modernizr-2.6.2.min.js' %}"></script>
+
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="{% static 'js/respond.min.js' %}"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="{% static 'css/fixindex.css' %}">
+	</head>
+	<body>
+
+	<div class="gtco-loader"></div>
+	<div id="page">
+		<nav class="gtco-nav" role="navigation">
+			<div class="gtco-container">
+				<div class="row">
+					<div class="col-xs-2 col-lg-4">
+            <div id="gtco-logo">
+							<div class="row">
+									{% for man in manage_site %}
+							<div class="col">
+							<a  href="{% url 'index' %}"><img src="media/{{ man.icon }}" class="icon-img"> {{ man.brand }}</a>
+						</div>
+								{% endfor %}
+					</div>
+					</div>
+					</div>
+					<div class="col-xs-10 col-lg-8 text-right menu-1">
+						<ul>
+							<li><a href="{% url 'index' %}">หน้าแรก</a></li>
+                            <li><a href="#services">การให้บริการ</a></li>
+							<li><a href="#branches">สาขาของเรา</a></li>
+              				<li><a href="#contact">ติดต่อเรา</a></li>
+                            <li><a href="{% url 'faqs' %}">FAQ:คำถามที่พบบ่อย</a></li>
+							{% if user.is_anonymous == True %}
+                <li>
+									<a href="{% url 'users:login' %}">เข้าสู่ระบบ</a>
+								</li>
+							{% endif %}
+							{% if user.is_authenticated %}
+							  <li><a href="{% url 'users:logout' %}">ออกจากระบบ</a></li>
+								 <li><a href="{% url 'users:dashboard' %}">dashboard</a></li>
+							{% endif %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		</nav>
+		<header id="gtco-header" class="gtco-cover" role="banner">
+			<div class="gtco-container">
+				<div class="row">
+					<div class="col-md-12 col-md-offset-0 text-left">
+						<div class="display-t">
+							<div class="display-tc">
+								<div class="row">
+									<div class="col copy animate-box text-center">
+											{% for man in manage_site %}
+										<h1>{{ man.brand }} ยินดีต้อนรับ </h1>
+										<p>{{ man.welcome }}</p>
+											{% endfor %}
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- END #gtco-header -->
+		<div class="gtco-client" id="services">
+			<div class="gtco-container">
+				<h3 class="text-center ">รูปแบบการให้บริการ </h3>
+<div id="servicescarousel" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+   {% for sl in sls %}
+    <li data-target="#servicescarousel" data-slide-to="{{sl.service_id}}"></li>
+	{% endfor %}
+  </ol>
+  <div class="carousel-inner">
+   {% for sl in sls %}
+	 {% if forloop.first %}
+    <div class="carousel-item active">
+      <img src="{{ sl.img.url }}" class="d-block w-100" alt="{{ sl.detail }}" width="500px" height="500px">
+			<div class="container">
+				<div class="carousel-caption">
+				<h6 class="text-white bgdark">{{ sl.detail }}</h6>
+				</div>
+			</div>
+
+    </div>
+		{% else %}
+    <div class="carousel-item">
+      <img src="{{ sl.img.url }}" class="d-block w-100" alt="{{ sl.detail }}" width="500px" height="500px">
+				<div class="container">
+				<div class="carousel-caption">
+				<h6 class="text-white bgdark">{{ sl.detail }}</h6>
+				</div>
+			</div>
+    </div>
+		{% endif %}
+			{% endfor %}
+
+  </div>
+  <a class="carousel-control-prev" href="#servicescarousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#servicescarousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+				</div>
+			</div>
+		<!-- END .gtco-client -->
+		<div class="gtco-services gtco-section" id="branches">
+			<h1 class="text-center">สาขาของเรา.</h1>
+
+			<div class="col-md-8 col-md-offset-2 gtco-heading text-center" id="branches">
+			<a href="{% url 'teches:fix_send_form' %}" class="btn  btn-secondary mt-4 mb-2">
+				<i class="fas fa-bullhorn"></i>
+				แจ้งเครื่องเสีย</a>
+			<div id="table-scroll">
+				<table class="table table-hover  table-borderless table-responsive" id="show-branch">
+					<thead>
+					</thead>
+					<tbody class="my-tbody">
+						{% for branch in branch_list %}
+						<tr>
+							<td>{{ branch.branch_name }} </td>
+							<td>{{ branch.branch_address }}</td>
+							<td>
+							</td>
+							<td>
+								<a href="{% url 'branches:branch-detail' branch.branch_id %}"><i class="fas fa-search-plus"></i> ดูข้อมูล</a>
+							</td>
+							<td>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			</div>
+
+		</div>
+
+		<!-- END .gtco-client -->
+		<footer id="gtco-footer" class="gtco-section" role="contentinfo" id="contact">
+			<div class="gtco-container">
+				<div class="row row-pb-md">
+					<div class="col-md-8 col-md-offset-2 gtco-cta text-center" id="contact">
+						<h3> ติดต่อเรา </h3>
+
+					</div>
+				</div>
+				<div class="row row-pb-md">
+					<div class="col-md-4 gtco-widget gtco-footer-paragraph">
+					{% for man in manage_site %}
+						<h3>{{ man.brand }}</h3>
+						<p>{{ man.about }}</p>
+						{% endfor %}
+					</div>
+					<div class="col-md-4 gtco-footer-link">
+						<div class="row">
+							<div class="col-md-6">
+								<ul class="gtco-list-link">
+									<li><a href="#">หน้าหลัก</a></li>
+                  <li><a href="#services">การให้บริการ</a></li>
+									<li><a href="#branches">สาขา</a></li>
+
+									<li><a href="#contact">ติดต่อเรา</a></li>
+									{% if user.is_anonymous %}
+									<li><a href="{% url 'users:login' %}">เข้าสู่ระบบ</a></li>
+									{% endif %}
+								</ul>
+							</div>
+							<div class="col-md-6">
+
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 gtco-footer-subscribe">
+						{% for man in manage_site %}
+						<p>{{ man.contact }} </p>
+						{% endfor %}
+
+					</div>
+				</div>
+			</div>
+			<div class="gtco-copyright">
+				<div class="gtco-container">
+					<div class="row">
+						<div class="col-md-6 text-center">
+							<p><small>&copy; 2018 Sai Nam Mint Website. </small></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+	</div>
+
+	<!-- jQuery Easing -->
+	<script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+
+
+	<!-- Waypoints -->
+	<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+	<!-- Carousel -->
+	<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+	<!-- Magnific Popup -->
+	<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{% static 'js/magnific-popup-options.js' %}"></script>
+	<!-- Main -->
+	<script src="{% static 'js/main.js' %}"></script>
+	<script src="{% static 'login/login.js' %}"></script>
+
+
+	</body>
+</html>

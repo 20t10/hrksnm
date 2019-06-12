@@ -1,0 +1,50 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} แก้ไขหน้าเว็บไซต์ {% endblock %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="container justify-content-center">
+        <h4 class="text-center"> จัดการหน้าเว็บไซต์</h4>
+    <div class="row">
+    <div class="col-6">
+    <from class="form-group" method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+{% for field in form %}
+  <div class="form-group{% if field.errors %} has-error{% endif %}">
+    <label style="color:red" for="{{ field.id_for_label }}">*{{ field.label }}</label>
+    {% render_field field class="form-control" %}
+    {% for error in field.errors %}
+      <p class="help-block">{{ error }}</p>
+    {% endfor %}
+  </div>
+{% endfor %}
+
+
+    <!--<label for="id_icon">ไอคอนเว็บไซต์</label>-->
+        <!--<br>-->
+    <!--<img src="{{ object.icon.url}}" width="50px"> {{ object.icon}}-->
+    <!--<input type="file" name="icon" accept="image/*" class="form-control" id="id_icon">-->
+    <!--<label for="id_brand">ชื่อไซต์</label>-->
+    <!--<input type="text" name="brand" value="{{ object.brand }}" maxlength="20" class="form-control" required="" id="id_brand">-->
+    <!--<label for="id_welcome">ข้อความต้อนรับ</label>-->
+    <!--<textarea name="welcome" cols="40" rows="10" class="form-control" required="" id="id_welcome">สายน้ำมิ้นยินดีต้อนรับ</textarea>-->
+    <!--<label for="id_about">เกี่ยวกับเรา</label>-->
+    <!--<input type="text" name="about" value="{{ object.about }}" maxlength="200" class="form-control" required="" id="id_about">-->
+    <!--<label for="id_service">การให้บริการ</label>-->
+    <!--<textarea name="service" cols="40" rows="10" class="form-control" required="" id="id_service">{{ object.service }}-->
+    <!--</textarea>-->
+    <!--<label for="id_contact">ติดต่อเรา</label>-->
+    <!--<input type="text" name="contact" value="{{ object.contact }}" maxlength="200" class="form-control" required="" id="id_contact">-->
+    <!--<br>-->
+        <input type="submit" class="btn btn-success">
+
+        <button type="submit" class="btn btn-info"><i class="fa fa-check"></i> แก้ไขหน้าเว็บ</button>
+
+</from>
+
+    </div>
+</div>
+
+
+</div>
+
+{% endblock %}

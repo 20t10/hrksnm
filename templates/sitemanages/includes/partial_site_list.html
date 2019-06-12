@@ -1,0 +1,38 @@
+{% for site in sites %}
+<!--<tr>-->
+<!--<td> <img src="{{ site.icon.url }}"  width="50px"> {{ site.icon }}</td>-->
+<!--</tr>-->
+<!--<tr>-->
+ <!--<td>{{ site.brand }}</td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td>{{ site.welcome }}</td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td>{{ site.about }}</td>-->
+<!--</tr>-->
+    <td>
+    </td>
+
+    <td style="width: 150px">
+      <button type="button"
+              class="btn btn-warning btn-sm js-update-site"
+              data-url="{% url 'site:site_update' site.id %}">
+        <i class="fas fa-pen"></i> แก้ไข
+      </button>
+        {% comment %}
+      {% if request.user.is_superuser == True %}
+      <button type="button"
+              class="btn btn-danger btn-sm js-delete-site"
+              data-url="{% url 'site:site_delete' site.id %}">
+        <i class="fas fa-times"></i> ลบ
+      </button>
+      {% endif %}
+        {% endcomment %}
+    </td>
+  </tr>
+{% empty %}
+  <tr>
+    <td colspan="8" class="text-center ">ไม่มี ข้อมูล</td>
+  </tr>
+{% endfor %}

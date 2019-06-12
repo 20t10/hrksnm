@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!--bootstrap-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    	<!-- jQuery -->
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <title> รายละเอียด สาขา  {{ branch.branch_name }} </title>
+</head>
+<body>
+<div class="container align-middle mt-3">
+   <div class="jumbotron ">
+       <h4 class="text-center"> รายละเอียดข้อมูลสาขา {{ branch.branch_name }}</h4>
+       <h5 class="text-center"> รูปถ่ายสาขา
+           <p >
+              <img src="{{ branch.branch_img.url }}" alt="" width="500px" class="mb-2 mt-2">
+           </p>
+       </h5>
+        <h4>ชื่อสาขา: {{ branch.branch_name }} </h4>
+        <h4>ที่อยู่: {{ branch.branch_address }}
+                {{ branch.branch_district }}
+      {{ branch.branch_amphoe }}
+      {{ branch.branch_province }}
+        </h4>
+        <h4>รหัสสาขา:{{ branch.branch_postcode }}</h4>
+        <h4>เบอร์โทรติดต่อ:{{ branch.tel_number }}</h4>
+       {% for on in owner %}
+       <h4>เจ้าของ:{{ on.user.first_name }} {{ on.user.last_name }}</h4>
+       {% endfor%}
+  <a href="{% url 'index' %}" class="btn btn-info text-center">กลับหน้าแรก</a>
+   </div>
+
+</div>
+
+
+
+
+
+
+
+</body>
+</html>

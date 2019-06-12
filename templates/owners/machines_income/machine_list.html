@@ -1,0 +1,57 @@
+{% extends "ElaAdmin/index.html" %}
+{% load static %}
+{% block title %} รายการเครื่องซักผ้า {% endblock %}
+
+{% block content %}
+  <h1 class="page-header text-center">รายการเครื่องซักผ้า</h1>
+  {% if user.is_staff or user.is_superuser == True %}
+  <table class="table  table-hover table-responsive-sm" id="machine-table">
+    <thead>
+      <tr>
+        <th>Module</th>
+        <th>สาขา</th>
+       
+        <th>วันที่ติดตั้ง</th>
+        <th>การซ่อมครั้งถัดไป</th>
+        <th></th>
+      
+      </tr>
+    </thead>
+    <tbody>
+    {% for machine in machines %}
+  <tr>
+    <td>{{ machine.pk }}</td>
+    <td>{{ machine.machine_location.branch_name }}</td>
+    
+    <td>{{ machine.machine_repair |date:"SHORT_DATE_FORMAT" }}</td>
+    <td>{{ machine.next_fix |date:"SHORT_DATE_FORMAT" }}</td>
+    <td style="width: 150px">
+    <a href="{% url 'machines:detail' machine.id %}" class="btn btn-info"><i class="fas fa-search-plus"></i> ดูรายได้</a>
+    </td>
+  </tr>
+
+{% endfor %}
+
+
+
+    </tbody>
+  </table>
+  <script type="text/javascript">
+ {% block jquery %}
+jQuery(function($){
+   $('#machine-table').DataTable({
+     destroy: true,
+
+   });
+ });
+
+ {% endblock %}
+
+
+
+
+  </script>
+  <hr>
+
+  {% endif %}
+{% endblock %}

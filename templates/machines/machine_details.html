@@ -1,0 +1,46 @@
+  <script>
+  var url = "/machines/machine_coin/{{branch.id}}";
+    setInterval(function() {
+        jQuery.ajax({
+            method: "GET",
+            url: url,
+            success: function(data) {
+                jQuery("tbody").empty();
+                jQuery.each(data, function (key, value) {
+                    var machine_id = key;
+                    var machine_name = value.machine_name;
+                    var machine_status = value.machine_status;
+                    if(machine_status == false){
+                      status = "ว่าง";
+                    }
+                    else {
+                      status = "ทำงาน";
+                    }
+                    var current_money = value.current_money;
+                    var sum_money = value.sum_money;
+                    var is_broken = value.is_broken;
+                    if(is_broken == false){
+                      broken = "ไม่มี";
+                    }
+                    else {
+                      broken = "มี";
+                    }
+                    jQuery("tbody").append(
+                      "<tr>" +
+                      "<td>"+ machine_name + "</td>" +
+                      "<td>" + status + "</td>" +
+                      "<td>"+
+                      current_money
+                      + "</td><td>" + sum_money + "</td>" +
+                      "<td>" + broken + "</td>"+"</tr>"
+
+                    )
+                })
+            },
+            error: function(data) {
+                console.log("error")
+                console.log(data)
+            }
+        })
+    }, 1000)
+ </script>

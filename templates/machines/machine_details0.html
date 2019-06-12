@@ -1,0 +1,51 @@
+
+  <script>
+    setInterval(function() {
+        $.ajax({
+            method: "GET",
+            url: "/machines/details/",
+            success: function(data) {
+                $("tbody").empty();
+                $.each(data, function (key, value) {
+
+                    var machine_id = key;
+                    var machine_location = value.machine_location;
+                    var machine_ip = value.machine_ip;
+                    var machine_status = value.machine_status;
+                    if(machine_status == false){
+                      status = "ว่าง";
+                    }
+                    else {
+                      status = "ทำงาน";
+                    }
+                    var machine_repair = value.machine_repair;
+                    var machine_nextfix = value.next_fix;
+                    var machine_desp_date = value.desp_date;
+                    
+                    var current_money = value.current_money;
+
+
+                    var sum_money = value.sum_money;
+                    var is_broken = value.is_broken;
+                    if(is_broken == false){
+                      broken = "ไม่มีการแจ้งเสีย";
+                    }
+                    else {
+                      broken = "ไม่มีการแจ้งเสีย";
+                    }
+                    $("tbody").append(
+                      "<tr>" +
+                      "<td>"+ machine_id + "</td>" + "<td>"+ machine_ip + "</td>" +
+                      "<td>" + status + "</td>" + "<td>"+ current_money + "</td><td>" + sum_money + "</td>" +
+                      "<td>" + broken + "</td>"+"</tr>"
+
+                    )
+                })
+            },
+            error: function(data) {
+                console.log("error")
+                console.log(data)
+            }
+        })
+    }, 5000)
+ </script>

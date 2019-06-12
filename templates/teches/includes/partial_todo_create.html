@@ -1,0 +1,39 @@
+<form method="POST" action="{% url 'teches:todo_create' %}" class="js-todo-create-form" enctype="multipart/form-data" data-machines-url="{% url 'teches:ajax_load_machines' %}">
+  {% csrf_token %}
+  <div class="modal-header">
+      <h4 class="modal-title">เพิ่มรายการใหม่</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+  </div>
+  <div class="modal-body">
+    {% include 'teches/includes/partial_todo_form.html' %}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+    <button type="submit" class="btn btn-primary">เพิ่มรายการ</button>
+  </div>
+</form>
+
+<script>
+
+jQuery(function($){
+
+
+  $("#id_work_location").change(function () {
+    var url = $(".js-todo-create-form").attr("data-machines-url");
+    var branchId = $(this).val();
+    $.ajax({
+    url: url,
+    data: {
+    'branch': branchId
+    },
+    success: function (data) {
+    $("#id_work_machine").html(data);
+    }
+    });
+
+  });
+});
+</script>

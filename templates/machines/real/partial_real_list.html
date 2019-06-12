@@ -1,0 +1,28 @@
+{% for machine in machines %}
+  <tr>
+    <td>{{ machine.id }}</td>
+    <td>{{ machine.machine_location.branch_name }}</td>
+    <td>{{ machine.machine_ip }}</td>
+    <td>{{ machine.machine_status  }}</td>
+    <td>{{ machine.machine_repair |date:"SHORT_DATE_FORMAT" }}</td>
+    <td>{{ machine.next_fix |date:"SHORT_DATE_FORMAT" }}</td>
+    <td>{{ machine.is_broken }}</td>
+    <td style="width: 150px">
+
+      <button type="button"
+              class="btn btn-warning btn-sm js-update-machine"
+              data-url="{% url 'machines:machine_update' machine.id %}">
+        <span class="glyphicon glyphicon-pencil"></span> แก้ไข
+      </button>
+      <button type="button"
+              class="btn btn-danger btn-sm js-delete-machine"
+              data-url="{% url 'machines:machine_delete' machine.id %}">
+        <span class="glyphicon glyphicon-trash"></span> ลบ
+      </button>
+    </td>
+  </tr>
+{% empty %}
+  <tr>
+    <td colspan="8" class="text-center ">ไม่มีเครื่องอยู่</td>
+  </tr>
+{% endfor %}

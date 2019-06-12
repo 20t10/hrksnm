@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h4 class="text-center">เพิ่มข้อมูลผู้ใช้งานระบบ</h4>
+    <form class="form-signin" method="POST">{% csrf_token %}
+        <p class="text-muted">ตำแหน่ง Admin ให้ขึ้นต้นด้วย admin </p>
+        <p class="text-muted">ตำแหน่ง พนักงาน ให้ขึ้นต้นด้วย employee</p>
+        <p class="text-muted">ตำแหน่ง เจ้าของสาขา ให้ขึ้นต้นด้วย owner</p>
+        <p class="text-muted">ตำแหน่ง ช่าง ให้ขึ้นต้นด้วย tech </p>
+      {{ form.as_p }}
+       <button class="btn btn-lg btn-success btn-block mt-2" type="submit">ยืนยัน</button>
+    </form>
+
+
+
+{% endblock %}
