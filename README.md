@@ -1,9 +1,9 @@
 # hrksnm
 <br/>
-# โปรเจ็ค จบ ระบบจัดการรายได้และซ่อมบำรุงร้านสายน้ำมิ้น
-# <a href="https://snmproject.herokuapp.com/"> SNM Project on Heroku  </a>
+# โปรเจ็ค จบ ระบบจัดการรายได้และซ่อมบำรุงร้านสายน้ำมิ้น <br />
+# <a href="https://snmproject.herokuapp.com/"> SNM Project on Heroku  </a> user:infer pass:k1ngh4d3s
 <br />
-# <a href="http://snmproject.tech/"> On VPS </a>
+# <a href="http://snmproject.tech/"> On VPS </a> user:snm pass:K1ngh4d3$
 <br />
 @REF <br />
 <a href="https://simpleisbetterthancomplex.com/tutorial/2016/11/15/how-to-implement-a-crud-using-ajax-and-json.html"> How to Implement CRUD Using Ajax and Json  </a> <br />
